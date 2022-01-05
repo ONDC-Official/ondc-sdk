@@ -1,0 +1,43 @@
+---
+server:
+  port: 9002
+logging:
+  level:
+    org:
+      apache:
+        coyote:
+          http11: WARN
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
+context:
+  domain: nic2004:52110
+  city: std:080
+  country: IND
+  bap_id: box.beckn.org
+  bap_uri: http://qa.api.box.beckn.org/bap/v1
+  ttl_seconds: 20
+database:
+  mongo:
+    url: mongodb://mongo:27017
+    name: root
+beckn:
+  security.enabled: false
+security:
+  self:
+    private_key:
+    unique_key_id: key1
+registry_service:
+  url: https://pilot-gateway-1.beckn.nsdl.co.in/
+  retry:
+    max_attempts: 3
+    initial_interval_in_millis: 1000
+    interval_multiplier: 1.0
+bpp_registry_service:
+  url: https://pilot-gateway-1.beckn.nsdl.co.in/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "configprops, env, health, loggers, metrics, mappings, httptrace"
