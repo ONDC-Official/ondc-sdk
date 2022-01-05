@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "dcb1f41f-daf3-48c1-afc6-b3adb5874068",
+		"name": "beckn-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"search\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"\",\r\n\t\t\"bpp_id\": \"\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/search\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n\t\"message\": {\r\n\t\t\"intent\": {\r\n\t\t\t\"provider\": {\r\n\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\"code\": \"string\",\r\n\t\t\t\t\t\"symbol\": \"string\",\r\n\t\t\t\t\t\"short_desc\": \"string\",\r\n\t\t\t\t\t\"long_desc\": \"string\",\r\n\t\t\t\t\t\"images\": [\r\n\t\t\t\t\t\t\"string\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"audio\": \"string\",\r\n\t\t\t\t\t\"3d_render\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"locations\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"id\": \"string\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t\"fulfillment\": {\r\n\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\"start\": {\r\n\t\t\t\t\t\"location\": {\r\n\t\t\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"code\": \"string\",\r\n\t\t\t\t\t\t\t\"symbol\": \"string\",\r\n\t\t\t\t\t\t\t\"short_desc\": \"string\",\r\n\t\t\t\t\t\t\t\"long_desc\": \"string\",\r\n\t\t\t\t\t\t\t\"images\": [\r\n\t\t\t\t\t\t\t\t\"string\"\r\n\t\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\t\"audio\": \"string\",\r\n\t\t\t\t\t\t\t\"3d_render\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"gps\": \"string\",\r\n\t\t\t\t\t\t\"address\": {\r\n\t\t\t\t\t\t\t\"door\": \"string\",\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"building\": \"string\",\r\n\t\t\t\t\t\t\t\"street\": \"string\",\r\n\t\t\t\t\t\t\t\"locality\": \"string\",\r\n\t\t\t\t\t\t\t\"ward\": \"string\",\r\n\t\t\t\t\t\t\t\"city\": \"string\",\r\n\t\t\t\t\t\t\t\"state\": \"string\",\r\n\t\t\t\t\t\t\t\"country\": \"string\",\r\n\t\t\t\t\t\t\t\"area_code\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"station_code\": \"string\",\r\n\t\t\t\t\t\t\"city\": {\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"code\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"country\": {\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"code\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"circle\": \"string\",\r\n\t\t\t\t\t\t\"polygon\": \"string\",\r\n\t\t\t\t\t\t\"3dspace\": \"string\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"time\": {\r\n\t\t\t\t\t\t\"label\": \"string\",\r\n\t\t\t\t\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\t\"duration\": \"string\",\r\n\t\t\t\t\t\t\"range\": {\r\n\t\t\t\t\t\t\t\"start\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\t\t\"end\": \"2021-03-22T05:48:04.938Z\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"days\": \"string\"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t\"end\": {\r\n\t\t\t\t\t\"location\": {\r\n\t\t\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"code\": \"string\",\r\n\t\t\t\t\t\t\t\"symbol\": \"string\",\r\n\t\t\t\t\t\t\t\"short_desc\": \"string\",\r\n\t\t\t\t\t\t\t\"long_desc\": \"string\",\r\n\t\t\t\t\t\t\t\"images\": [\r\n\t\t\t\t\t\t\t\t\"string\"\r\n\t\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\t\"audio\": \"string\",\r\n\t\t\t\t\t\t\t\"3d_render\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"gps\": \"string\",\r\n\t\t\t\t\t\t\"address\": {\r\n\t\t\t\t\t\t\t\"door\": \"string\",\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"building\": \"string\",\r\n\t\t\t\t\t\t\t\"street\": \"string\",\r\n\t\t\t\t\t\t\t\"locality\": \"string\",\r\n\t\t\t\t\t\t\t\"ward\": \"string\",\r\n\t\t\t\t\t\t\t\"city\": \"string\",\r\n\t\t\t\t\t\t\t\"state\": \"string\",\r\n\t\t\t\t\t\t\t\"country\": \"string\",\r\n\t\t\t\t\t\t\t\"area_code\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"station_code\": \"string\",\r\n\t\t\t\t\t\t\"city\": {\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"code\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"country\": {\r\n\t\t\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\t\t\"code\": \"string\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"circle\": \"string\",\r\n\t\t\t\t\t\t\"polygon\": \"string\",\r\n\t\t\t\t\t\t\"3dspace\": \"string\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"time\": {\r\n\t\t\t\t\t\t\"label\": \"string\",\r\n\t\t\t\t\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\t\"duration\": \"string\",\r\n\t\t\t\t\t\t\"range\": {\r\n\t\t\t\t\t\t\t\"start\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\t\t\"end\": \"2021-03-22T05:48:04.938Z\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"days\": \"string\"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t\"tags\": {\r\n\t\t\t\t\t\"additionalProp1\": \"string\",\r\n\t\t\t\t\t\"additionalProp2\": \"string\",\r\n\t\t\t\t\t\"additionalProp3\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"payment\": {\r\n\t\t\t\t\"uri\": \"string\",\r\n\t\t\t\t\"tl_method\": \"http/get\",\r\n\t\t\t\t\"params\": {\r\n\t\t\t\t\t\"transaction_id\": \"string\",\r\n\t\t\t\t\t\"amount\": \"string\",\r\n\t\t\t\t\t\"additionalProp1\": \"string\",\r\n\t\t\t\t\t\"additionalProp2\": \"string\",\r\n\t\t\t\t\t\"additionalProp3\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"type\": \"ON-ORDER\",\r\n\t\t\t\t\"status\": \"PAID\",\r\n\t\t\t\t\"time\": {\r\n\t\t\t\t\t\"label\": \"string\",\r\n\t\t\t\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\"duration\": \"string\",\r\n\t\t\t\t\t\"range\": {\r\n\t\t\t\t\t\t\"start\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\t\"end\": \"2021-03-22T05:48:04.938Z\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"days\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"category\": {\r\n\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\"name\": \"string\",\r\n\t\t\t\t\t\"code\": \"string\",\r\n\t\t\t\t\t\"symbol\": \"string\",\r\n\t\t\t\t\t\"short_desc\": \"string\",\r\n\t\t\t\t\t\"long_desc\": \"string\",\r\n\t\t\t\t\t\"images\": [\r\n\t\t\t\t\t\t\"string\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"audio\": \"string\",\r\n\t\t\t\t\t\"3d_render\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"time\": {\r\n\t\t\t\t\t\"label\": \"string\",\r\n\t\t\t\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\"duration\": \"string\",\r\n\t\t\t\t\t\"range\": {\r\n\t\t\t\t\t\t\"start\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\t\t\t\t\"end\": \"2021-03-22T05:48:04.938Z\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"days\": \"string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"tags\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"additionalProp1\": \"string\",\r\n\t\t\t\t\t\t\"additionalProp2\": \"string\",\r\n\t\t\t\t\t\t\"additionalProp3\": \"string\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t\"offer\": {\r\n\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\"name\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"item\": {\r\n\t\t\t\t\"id\": \"string\",\r\n\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\"name\": \"string\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"tags\": {\r\n\t\t\t\t\"additionalProp1\": \"string\",\r\n\t\t\t\t\"additionalProp2\": \"string\",\r\n\t\t\t\t\"additionalProp3\": \"string\"\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "select",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\": {\r\n      \"domain\": \"MOBILITY\",\r\n\t  \"country\": \"IND\",\r\n\t  \"city\": \"Pune\",\r\n      \"action\": \"select\",\r\n      \"core_version\": \"0.9.2\",\r\n      \"bap_id\": \"\",\r\n      \"bap_uri\": \"\",\r\n      \"bpp_id\": \"\",\r\n      \"bpp_uri\": \"http://localhost:8081/seller/adaptor/select\",\r\n      \"transaction_id\": \"12387917398173\",\r\n      \"message_id\": \"string\",\r\n      \"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n      \"key\": \"string\",\r\n      \"ttl\": \"string\"\r\n    },\r\n    \"message\": {\r\n        \"order\": {\r\n            \"items\":[\r\n                {\r\n                    \"id\": \"item_1\",\r\n                    \"quantity\": {\r\n                        \"count\": 2\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": \"item_2\",\r\n                    \"quantity\": {\r\n                        \"count\": 1\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/select",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"select"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "init",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\": {\r\n      \"domain\": \"MOBILITY\",\r\n\t  \"country\": \"IND\",\r\n\t  \"city\": \"Pune\",\r\n      \"action\": \"INIT\",\r\n      \"core_version\": \"0.9.2\",\r\n      \"bap_id\": \"\",\r\n      \"bap_uri\": \"\",\r\n      \"bpp_id\": \"\",\r\n      \"bpp_uri\": \"http://localhost:8081/seller/adaptor/init\",\r\n      \"transaction_id\": \"12387917398173\",\r\n      \"message_id\": \"string\",\r\n      \"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n      \"key\": \"string\",\r\n      \"ttl\": \"string\"\r\n    },\r\n    \"message\": {\r\n        \"order\": {\r\n            \"items\":[\r\n                {\r\n                    \"id\": \"item_1\",\r\n                    \"quantity\": {\r\n                        \"count\": 2\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": \"item_2\",\r\n                    \"quantity\": {\r\n                        \"count\": 1\r\n                    }\r\n                }\r\n            ],\r\n            \"billing\": {\r\n                \"name\": \"John Doe\",\r\n                \"address\": {\r\n                    \"door\": \"21A\",\r\n                    \"name\": \"ABC Appartments\",\r\n                    \"locality\": \"HSR Layout\",\r\n                    \"city\": \"Bengaluru\",\r\n                    \"state\": \"Karnataka\",\r\n                    \"country\": \"India\",\r\n                    \"area_code\": \"560102\"\r\n                },\r\n                \"email\": \"user@example.com\",\r\n                \"phone\": \"+919876543210\"\r\n            },\r\n            \"fulfillment\": {\r\n                \"type\": \"home-delivery\",\r\n                \"tracking\": false,\r\n                \"start\": {\r\n                    \"location\": {\r\n                        \"id\": \"koramangala-4th-block-location\",\r\n                        \"descriptor\": {\r\n                            \"name\": \"Pooja Stores\"\r\n                        },\r\n                        \"gps\": \"12.9349377,77.6055586\"\r\n                    },\r\n                    \"time\": {\r\n                        \"range\": {\r\n                            \"start\": \"2021-06-15T07:09:30.000Z\",\r\n                            \"end\": \"2021-06-15T07:10:30.000Z\"\r\n                        }\r\n                    },\r\n                    \"instructions\": {\r\n                        \"name\": \"pick up instructions\",\r\n                        \"short_desc\": \"Provide the order id\"\r\n                    },\r\n                    \"contact\": {\r\n                        \"phone\": \"+919999999999\",\r\n                        \"email\": \"info@poojastores.com\"\r\n                    }\r\n                },\r\n                \"end\": {\r\n                    \"location\": {\r\n                        \"gps\": \"12.914028, 77.638698\",\r\n                        \"address\": {\r\n                            \"door\": \"21A\",\r\n                            \"name\": \"ABC Appartments\",\r\n                            \"locality\": \"HSR Layout\",\r\n                            \"city\": \"Bengaluru\",\r\n                            \"state\": \"Karnataka\",\r\n                            \"country\": \"India\",\r\n                            \"area_code\": \"560102\"\r\n                        }\r\n                    },\r\n                    \"time\": {\r\n                        \"range\": {\r\n                            \"start\": \"2021-06-15T07:11:36.212Z\",\r\n                            \"end\": \"2021-06-15T07:12:36.212Z\"\r\n                        }\r\n                    },\r\n                    \"instructions\": {\r\n                        \"name\": \"drop off instructions\",\r\n                        \"short_desc\": \"Leave at door step\"\r\n                    },\r\n                    \"contact\": {\r\n                        \"phone\": \"+919876543210\",\r\n                        \"email\": \"user@example.com\"\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"confirm\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"\",\r\n\t\t\"bpp_id\": \"\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/confirm\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n    \"message\": {\r\n        \"order\": {\r\n            \"items\":[\r\n                {\r\n                    \"id\": \"item_1\",\r\n                    \"quantity\": {\r\n                        \"count\": 2\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": \"item_2\",\r\n                    \"quantity\": {\r\n                        \"count\": 1\r\n                    }\r\n                }\r\n            ],\r\n            \"billing\": {\r\n                \"name\": \"John Doe\",\r\n                \"address\": {\r\n                    \"door\": \"21A\",\r\n                    \"name\": \"ABC Appartments\",\r\n                    \"locality\": \"HSR Layout\",\r\n                    \"city\": \"Bengaluru\",\r\n                    \"state\": \"Karnataka\",\r\n                    \"country\": \"India\",\r\n                    \"area_code\": \"560102\"\r\n                },\r\n                \"email\": \"user@example.com\",\r\n                \"phone\": \"+919876543210\"\r\n            },\r\n            \"fulfillment\": {\r\n                \"type\": \"home-delivery\",\r\n                \"tracking\": false,\r\n                \"start\": {\r\n                    \"location\": {\r\n                        \"id\": \"koramangala-4th-block-location\",\r\n                        \"descriptor\": {\r\n                            \"name\": \"Pooja Stores\"\r\n                        },\r\n                        \"gps\": \"12.9349377,77.6055586\"\r\n                    },\r\n                    \"time\": {\r\n                        \"range\": {\r\n                            \"start\": \"2021-06-15T07:09:30.000Z\",\r\n                            \"end\": \"2021-06-15T07:10:30.000Z\"\r\n                        }\r\n                    },\r\n                    \"instructions\": {\r\n                        \"name\": \"pick up instructions\",\r\n                        \"short_desc\": \"Provide the order id\"\r\n                    },\r\n                    \"contact\": {\r\n                        \"phone\": \"+919999999999\",\r\n                        \"email\": \"info@poojastores.com\"\r\n                    }\r\n                },\r\n                \"end\": {\r\n                    \"location\": {\r\n                        \"gps\": \"12.914028, 77.638698\",\r\n                        \"address\": {\r\n                            \"door\": \"21A\",\r\n                            \"name\": \"ABC Appartments\",\r\n                            \"locality\": \"HSR Layout\",\r\n                            \"city\": \"Bengaluru\",\r\n                            \"state\": \"Karnataka\",\r\n                            \"country\": \"India\",\r\n                            \"area_code\": \"560102\"\r\n                        }\r\n                    },\r\n                    \"time\": {\r\n                        \"range\": {\r\n                            \"start\": \"2021-06-15T07:11:36.212Z\",\r\n                            \"end\": \"2021-06-15T07:12:36.212Z\"\r\n                        }\r\n                    },\r\n                    \"instructions\": {\r\n                        \"name\": \"drop off instructions\",\r\n                        \"short_desc\": \"Leave at door step\"\r\n                    },\r\n                    \"contact\": {\r\n                        \"phone\": \"+919876543210\",\r\n                        \"email\": \"user@example.com\"\r\n                    }\r\n                }\r\n            },\r\n            \"quote\": {\r\n                \"price\": {\r\n                    \"currency\": \"INR\",\r\n                    \"value\": \"370\"\r\n                },\r\n                \"breakup\": [\r\n                    {\r\n                        \"title\": \"Red Apples\",\r\n                        \"price\": {\r\n                            \"currency\": \"INR\",\r\n                            \"value\": \"180\"\r\n                        }\r\n                    },\r\n                    {\r\n                        \"title\": \"Green Apples Organic\",\r\n                        \"price\": {\r\n                            \"currency\": \"INR\",\r\n                            \"value\": \"170\"\r\n                        }\r\n                    },\r\n                    {\r\n                        \"title\": \"Delivery Charges\",\r\n                        \"price\": {\r\n                            \"currency\": \"INR\",\r\n                            \"value\": \"20\"\r\n                        }\r\n                    }\r\n                ]\r\n            },\r\n            \"payment\": {\r\n                \"uri\": \"https://api.bpp.com/pay?amt=$640&mode=upi&vpa=bpp@upi\",\r\n                \"tl_method\": \"http/get\",\r\n                \"params\": {\r\n                    \"amount\": \"640\",\r\n                    \"mode\": \"upi\",\r\n                    \"vpa\": \"bpp@upi\"\r\n                },\r\n                \"type\": \"ON-FULFILMENT\",\r\n                \"status\": \"NOT-PAID\"\r\n            }\r\n        }\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/confirm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"cancel\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"http://localhost:8080/buyer/adaptor/on_cancel\",\r\n\t\t\"bpp_id\": \"nsdl.co.in.bp|nsdl_bpp1\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/cancel\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n\t\"message\": {\r\n\t\t\"order_id\": \"order_1\",\r\n\t\t\"cancellation_reason_id\": \"reason_3\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/cancel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "track",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\": {\r\n      \"domain\": \"MOBILITY\",\r\n      \"country\": \"IND\",\r\n      \"city\": \"Pune\",\r\n      \"action\": \"track\",\r\n      \"core_version\": \"0.9.2\",\r\n      \"bap_id\": \"\",\r\n      \"bap_uri\": \"\",\r\n      \"bpp_id\": \"\",\r\n      \"bpp_uri\": \"http://localhost:8081/seller/adaptor/track\",\r\n      \"transaction_id\": \"12387917398173\",\r\n      \"message_id\": \"string\",\r\n      \"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n      \"key\": \"string\",\r\n      \"ttl\": \"string\"\r\n    },\r\n    \"message\": {\r\n        \"order_id\": \"order_1\",\r\n        \"callback_url\": \"https://mock_bap.com/order_track?orderId=order_1\"\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/track",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"track"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "status",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"status\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"\",\r\n\t\t\"bpp_id\": \"\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/status\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n\t\"message\": {\r\n\t\t\"order_id\": \"order_1\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"update\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"\",\r\n\t\t\"bpp_id\": \"\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/update\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n\t\"message\": {\r\n\t\t\"update_target\": \"payment\",\r\n\t\t\"order\": {\r\n\t\t\t\"id\": \"order_1\",\r\n\t\t\t\"state\": \"Fulfilment complete\",\r\n\t\t\t\"items\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"id\": \"item_1\",\r\n\t\t\t\t\t\"quantity\": {\r\n\t\t\t\t\t\t\"count\": 2\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"id\": \"item_2\",\r\n\t\t\t\t\t\"quantity\": {\r\n\t\t\t\t\t\t\"count\": 1\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"billing\": {\r\n\t\t\t\t\"name\": \"John Doe\",\r\n\t\t\t\t\"address\": {\r\n\t\t\t\t\t\"door\": \"21A\",\r\n\t\t\t\t\t\"name\": \"ABC Appartments\",\r\n\t\t\t\t\t\"locality\": \"HSR Layout\",\r\n\t\t\t\t\t\"city\": \"Bengaluru\",\r\n\t\t\t\t\t\"state\": \"Karnataka\",\r\n\t\t\t\t\t\"country\": \"India\",\r\n\t\t\t\t\t\"area_code\": \"560102\"\r\n\t\t\t\t},\r\n\t\t\t\t\"email\": \"user@example.com\",\r\n\t\t\t\t\"phone\": \"+919876543210\"\r\n\t\t\t},\r\n\t\t\t\"fulfillment\": {\r\n\t\t\t\t\"type\": \"home-delivery\",\r\n\t\t\t\t\"tracking\": false,\r\n\t\t\t\t\"start\": {\r\n\t\t\t\t\t\"location\": {\r\n\t\t\t\t\t\t\"id\": \"koramangala-4th-block-location\",\r\n\t\t\t\t\t\t\"descriptor\": {\r\n\t\t\t\t\t\t\t\"name\": \"Pooja Stores\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"gps\": \"12.9349377,77.6055586\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"time\": {\r\n\t\t\t\t\t\t\"range\": {\r\n\t\t\t\t\t\t\t\"start\": \"2021-06-15T07:09:30.000Z\",\r\n\t\t\t\t\t\t\t\"end\": \"2021-06-15T07:10:30.000Z\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"instructions\": {\r\n\t\t\t\t\t\t\"name\": \"pick up instructions\",\r\n\t\t\t\t\t\t\"short_desc\": \"Provide the order id\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"contact\": {\r\n\t\t\t\t\t\t\"phone\": \"+919999999999\",\r\n\t\t\t\t\t\t\"email\": \"info@poojastores.com\"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t\"end\": {\r\n\t\t\t\t\t\"location\": {\r\n\t\t\t\t\t\t\"gps\": \"12.914028, 77.638698\",\r\n\t\t\t\t\t\t\"address\": {\r\n\t\t\t\t\t\t\t\"door\": \"21A\",\r\n\t\t\t\t\t\t\t\"name\": \"ABC Appartments\",\r\n\t\t\t\t\t\t\t\"locality\": \"HSR Layout\",\r\n\t\t\t\t\t\t\t\"city\": \"Bengaluru\",\r\n\t\t\t\t\t\t\t\"state\": \"Karnataka\",\r\n\t\t\t\t\t\t\t\"country\": \"India\",\r\n\t\t\t\t\t\t\t\"area_code\": \"560102\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"time\": {\r\n\t\t\t\t\t\t\"range\": {\r\n\t\t\t\t\t\t\t\"start\": \"2021-06-15T07:11:36.212Z\",\r\n\t\t\t\t\t\t\t\"end\": \"2021-06-15T07:12:36.212Z\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"instructions\": {\r\n\t\t\t\t\t\t\"name\": \"drop off instructions\",\r\n\t\t\t\t\t\t\"short_desc\": \"Leave at door step\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"contact\": {\r\n\t\t\t\t\t\t\"phone\": \"+919876543210\",\r\n\t\t\t\t\t\t\"email\": \"user@example.com\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"quote\": {\r\n\t\t\t\t\"price\": {\r\n\t\t\t\t\t\"currency\": \"INR\",\r\n\t\t\t\t\t\"value\": \"370\"\r\n\t\t\t\t},\r\n\t\t\t\t\"breakup\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"title\": \"Red Apples\",\r\n\t\t\t\t\t\t\"price\": {\r\n\t\t\t\t\t\t\t\"currency\": \"INR\",\r\n\t\t\t\t\t\t\t\"value\": \"180\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"title\": \"Green Apples Organic\",\r\n\t\t\t\t\t\t\"price\": {\r\n\t\t\t\t\t\t\t\"currency\": \"INR\",\r\n\t\t\t\t\t\t\t\"value\": \"170\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"title\": \"Delivery Charges\",\r\n\t\t\t\t\t\t\"price\": {\r\n\t\t\t\t\t\t\t\"currency\": \"INR\",\r\n\t\t\t\t\t\t\t\"value\": \"20\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t\"payment\": {\r\n\t\t\t\t\"uri\": \"https://api.bpp.com/pay?amt=$640&mode=upi&vpa=bpp@upi\",\r\n\t\t\t\t\"tl_method\": \"http/get\",\r\n\t\t\t\t\"params\": {\r\n\t\t\t\t\t\"transaction_id\": \"transaction_453\",\r\n\t\t\t\t\t\"amount\": \"640\",\r\n\t\t\t\t\t\"mode\": \"upi\",\r\n\t\t\t\t\t\"vpa\": \"bpp@upi\"\r\n\t\t\t\t},\r\n\t\t\t\t\"type\": \"ON-FULFILMENT\",\r\n\t\t\t\t\"status\": \"PAID\"\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "support",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"support\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"\",\r\n\t\t\"bpp_id\": \"\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/support\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n\t\"message\": {\r\n\t\t\"ref_id\": \"order_1\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/support",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"support"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rating",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\": {\r\n\t\t\"domain\": \"MOBILITY\",\r\n\t\t\"country\": \"IND\",\r\n\t\t\"city\": \"Pune\",\r\n\t\t\"action\": \"rating\",\r\n\t\t\"core_version\": \"0.9.2\",\r\n\t\t\"bap_id\": \"\",\r\n\t\t\"bap_uri\": \"\",\r\n\t\t\"bpp_id\": \"\",\r\n\t\t\"bpp_uri\": \"http://localhost:8081/seller/adaptor/rating\",\r\n\t\t\"transaction_id\": \"12387917398173\",\r\n\t\t\"message_id\": \"string\",\r\n\t\t\"timestamp\": \"2021-03-22T05:48:04.938Z\",\r\n\t\t\"key\": \"string\",\r\n\t\t\"ttl\": \"string\"\r\n\t},\r\n    \"message\": {\r\n        \"id\": \"order_1\",\r\n        \"value\": \"4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/buyer/adaptor/rating",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"buyer",
+						"adaptor",
+						"rating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lookup",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"type\": \"BAP\", \"domain\": \"MOBILITY\", \"country\": \"IND\", \"city\": \"Pune\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bap/adaptor/lookup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bap",
+						"adaptor",
+						"lookup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
