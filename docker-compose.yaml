@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+
+  biap-bap-protocol:
+    build:
+      context: biab-bap-protocol
+      dockerfile: dockerfile
+    container_name: bap-protocol
+    depends_on:
+      - mongo
+    environment:
+      ENV: dev
+    expose:
+      - 9002
+    ports:
+      - 9002:9002
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  biap-bap-client:
+    build:
+      context: biab-bap-client
+      dockerfile: dockerfile
+    container_name: bap-client
+    depends_on:
+      - biap-bap-protocol
+    environment:
+      ENV: dev
+      PROTOCOL_HOST: biap-bap-protocol
+    ports:
+      - 80:9001
+    expose:
+      - 9001
+
+  biap-bap-store-front-ui:
+    build:
+      context: ondc-ui-layer
+      dockerfile: dockerfile
+    container_name: ondc-ui-layer
+    depends_on:
+      - biap-bap-client
+    environment:
+      ENV: dev
+      REACT_APP_BASE_URL:
+    expose:
+      - 8080
