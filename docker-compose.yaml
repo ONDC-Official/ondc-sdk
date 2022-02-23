@@ -31,21 +31,25 @@ services:
       - biap-bap-protocol
     environment:
       ENV: dev
-      PROTOCOL_HOST: biap-bap-protocol
+      PROTOCOL_HOST: 139.59.24.32:9002
     ports:
-      - 80:9001
+      - 9001:9001
     expose:
       - 9001
 
   biap-bap-store-front-ui:
     build:
-      context: ondc-ui-layer
-      dockerfile: dockerfile
-    container_name: ondc-ui-layer
-    depends_on:
-      - biap-bap-client
+      context: biap-app-ui-front
+      dockerfile: Dockerfile
+    container_name: biap-app-ui-front
+    #    depends_on:
+    #      - biap-bap-client
     environment:
-      ENV: dev
-      REACT_APP_BASE_URL:
+      REACT_APP_BASE_URL: http://ondc-sandbox.dataorc.in/
+      REACT_APP_FIREBASE_API_KEY: AIzaSyAKeCcx6Y5WoSJbDb2LrFg3IO66o3VE4uM
+      REACT_APP_FIREBASE_AUTH_DOMAIN: ondc-ui.firebaseapp.com
+      REACT_APP_GOOGLE_API_KEY: AIzaSyCNDEZpMQN4xJwN3SKVyvRRw-e8Aj1Mca8
     expose:
-      - 8080
+      - 80
+    ports:
+      - 80:80
