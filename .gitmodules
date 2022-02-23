@@ -10,3 +10,6 @@
 [submodule "beckn-protocol-dtos"]
 	path = beckn-protocol-dtos
         url = git@github.com:beckn/beckn-protocol-dtos.git
+[submodule "biap-app-ui-front"]
+	path = biap-app-ui-front
+	url = git@github.com:Open-network-for-digital-commerce/biap-app-ui-front.git
