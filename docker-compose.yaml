@@ -31,13 +31,13 @@ services:
       - biap-bap-protocol
     environment:
       ENV: dev
-      PROTOCOL_HOST: 139.59.24.32:9002
+      PROTOCOL_HOST: 13.235.14.111:9002
     ports:
       - 9001:9001
     expose:
       - 9001
 
-  biap-bap-store-front-ui:
+  nginx:
     build:
       context: biap-app-ui-front
       dockerfile: Dockerfile
@@ -45,7 +45,7 @@ services:
     #    depends_on:
     #      - biap-bap-client
     environment:
-      REACT_APP_BASE_URL: http://ondc-sandbox.dataorc.in/
+      REACT_APP_BASE_URL: http://buyer-app.ondc.org/
       REACT_APP_FIREBASE_API_KEY: AIzaSyAKeCcx6Y5WoSJbDb2LrFg3IO66o3VE4uM
       REACT_APP_FIREBASE_AUTH_DOMAIN: ondc-ui.firebaseapp.com
       REACT_APP_GOOGLE_API_KEY: AIzaSyCNDEZpMQN4xJwN3SKVyvRRw-e8Aj1Mca8
@@ -53,3 +53,17 @@ services:
       - 80
     ports:
       - 80:80
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      #      - ./npnt-frontend/build:/usr/share/nginx/html
+
+
+  certbot:
+    image: certbot/certbot
+    restart: "always"
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
