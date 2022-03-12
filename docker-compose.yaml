@@ -41,6 +41,11 @@ services:
     build:
       context: biap-app-ui-front
       dockerfile: Dockerfile
+      args:
+        REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+        REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
+        REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
+        REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
     container_name: biap-app-ui-front
     #    depends_on:
     #      - biap-bap-client
