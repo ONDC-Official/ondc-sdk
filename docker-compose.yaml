@@ -32,6 +32,7 @@ services:
     environment:
       ENV: dev
       PROTOCOL_HOST: 13.235.14.111:9002
+      DATABASE_URL: mongodb://mongo:27017
     ports:
       - 9001:9001
     expose:
