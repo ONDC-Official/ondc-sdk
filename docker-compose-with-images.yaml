@@ -3,9 +3,7 @@ version: '2'
 services:
 
   biap-bap-protocol:
-    build:
-      context: biab-bap-protocol
-      dockerfile: dockerfile
+    image: navdeep710/ondc-protocol-layer-server:v1
     container_name: bap-protocol
     depends_on:
       - mongo
@@ -24,9 +22,7 @@ services:
       - 27017:27017
 
   biap-bap-client:
-    build:
-      context: biab-bap-client
-      dockerfile: dockerfile
+    image: navdeep710/ondc-client-layer-server:v1
     container_name: bap-client
     depends_on:
       - biap-bap-protocol
