@@ -13,3 +13,6 @@
 [submodule "biap-app-ui-front"]
 	path = biap-app-ui-front
 	url = git@github.com:Open-network-for-digital-commerce/biap-app-ui-front.git
+[submodule "ondc-mmi-service"]
+	path = ondc-mmi-service
+	url = git@github.com:dataorchestration/ondc-mmi-server.git
