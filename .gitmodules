@@ -16,3 +16,6 @@
 [submodule "ondc-mmi-service"]
 	path = ondc-mmi-service
 	url = git@github.com:dataorchestration/ondc-mmi-server.git
+[submodule "biap-client-node-js"]
+	path = biap-client-node-js
+	url = git@github.com:Open-network-for-digital-commerce/biap-client-node-js.git
