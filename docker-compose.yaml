@@ -89,3 +89,22 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  payment-service:
+    build:
+      context: biap-client-node-js
+      dockerfile: Dockerfile
+      args:
+        JUSPAY_SECRET_KEY_PATH: ${JUSPAY_SECRET_KEY_PATH}
+        JUSPAY_BASE_URL: ${JUSPAY_BASE_URL}
+        JUSPAY_MERCHANT_ID: ${JUSPAY_MERCHANT_ID}
+        JUSPAY_API_KEY: ${JUSPAY_API_KEY}
+        FIREBASE_ADMIN_SERVICE_ACCOUNT: ${FIREBASE_ADMIN_SERVICE_ACCOUNT}
+        ONDC_BASE_API_URL: ${ONDC_BASE_API_URL}
+        PORT: 3000
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    depends_on:
+      - mongo
