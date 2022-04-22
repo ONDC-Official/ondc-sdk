@@ -48,6 +48,7 @@ services:
       ENV: prod
       MMI_CLIENT_ID: ${MMI_CLIENT_ID}
       MMI_CLIENT_SECRET: ${MMI_CLIENT_SECRET}
+      MMI_ADVANCE_API_KEY: ${MMI_ADVANCE_API_KEY}
     ports:
       - 8000:8000
     expose:
@@ -62,6 +63,10 @@ services:
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
         REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
         REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
+        REACT_APP_JUSTPAY_CLIENT_AND_MERCHANT_KEY: ${REACT_APP_JUSTPAY_CLIENT_AND_MERCHANT_KEY}
+        REACT_APP_MERCHANT_KEY_ID: ${REACT_APP_MERCHANT_KEY_ID}
+        REACT_APP_PAYMENT_SDK_ENV: ${REACT_APP_PAYMENT_SDK_ENV}
+        REACT_APP_PAYMENT_SERVICE_URL: ${REACT_APP_PAYMENT_SERVICE_URL}
     container_name: biap-app-ui-front
     #    depends_on:
     #      - biap-bap-client
@@ -90,7 +95,7 @@ services:
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
-  payment-service:
+  biap-client-node-js:
     build:
       context: biap-client-node-js
       dockerfile: Dockerfile
