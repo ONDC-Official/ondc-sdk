@@ -117,6 +117,7 @@ services:
         PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
         DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
         PORT: 3000
+        NODE_DEV: dev
     ports:
       - 3000:3000
     expose:
