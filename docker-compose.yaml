@@ -32,7 +32,7 @@ services:
       - biap-bap-protocol
     environment:
       ENV: dev
-      PROTOCOL_HOST: 13.235.14.111:9002
+      PROTOCOL_HOST: buyer-app.ondc.org
       DATABASE_URL: mongodb://mongo:27017
     ports:
       - 9001:9001
@@ -124,5 +124,19 @@ services:
       - 3000
     depends_on:
       - mongo
+
+  py-ondc-protocol:
+    build:
+      context: py-ondc-protocol/webserver
+      dockerfile: Dockerfile
+    container_name: py-ondc-protocol
+    environment:
+      ENV: prod
+      MONGO_DATABASE_HOST: mongo
+      BAP_URL: ${BAP_URL}
+    ports:
+      - 5555:5555
+    expose:
+      - 5555
 
 
