@@ -19,3 +19,6 @@
 [submodule "biap-client-node-js"]
 	path = biap-client-node-js
 	url = git@github.com:Open-network-for-digital-commerce/biap-client-node-js.git
+[submodule "py-ondc-protocol"]
+	path = py-ondc-protocol
+	url = git@github.com:dataorchestration/sandbox-protocol-py.git
