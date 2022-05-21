@@ -112,7 +112,7 @@ services:
         DOMAIN: ${DOMAIN}
         CITY: ${CITY}
         COUNTRY: ${COUNTRY}
-        BAP_ID: ${BAP_ID}
+        BAP_ID: "buyer-app.ondc.org"
         BAP_URL: ${BAP_URL}
         PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
         DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
