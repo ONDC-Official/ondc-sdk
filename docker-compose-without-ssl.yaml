@@ -61,7 +61,7 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: Dockerfile
+      dockerfile: DockerfileWithoutSSL
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
@@ -91,14 +91,6 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
-
-  certbot:
-    image: certbot/certbot
-    restart: "always"
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   biap-client-node-js:
     build:
