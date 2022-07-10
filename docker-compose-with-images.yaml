@@ -3,7 +3,7 @@ version: '2'
 services:
 
   biap-bap-protocol:
-    image: navdeep710/ondc-protocol-layer-server:v1
+    image: navdeep710/ondc-protocol-layer-server:v3
     container_name: bap-protocol
     depends_on:
       - mongo
@@ -22,28 +22,49 @@ services:
       - 27017:27017
 
   biap-bap-client:
-    image: navdeep710/ondc-client-layer-server:v1
+    image: navdeep710/ondc-client-layer-server:v3
     container_name: bap-client
     depends_on:
       - biap-bap-protocol
     environment:
       ENV: dev
-      PROTOCOL_HOST: 13.235.14.111:9002
+      PROTOCOL_HOST: ${PROTOCOL_HOST}
       DATABASE_URL: mongodb://mongo:27017
     ports:
       - 9001:9001
     expose:
       - 9001
 
+  mmi-client:
+    image: navdeep710/ondc-ancillary-services:v2
+    container_name: map-client
+    environment:
+      ENV: prod
+      MMI_CLIENT_ID: ${MMI_CLIENT_ID}
+      MMI_CLIENT_SECRET: ${MMI_CLIENT_SECRET}
+      MMI_ADVANCE_API_KEY: ${MMI_ADVANCE_API_KEY}
+      KNOWLARITY_NUMBER: ${KNOWLARITY_NUMBER}
+      KNOWLARITY_AGENT_NUMBER: ${KNOWLARITY_AGENT_NUMBER}
+      KNOWLARITY_API_KEY: ${KNOWLARITY_API_KEY}
+      KNOWLARITY_AUTHORIZATION_HEADER_KEY: ${KNOWLARITY_AUTHORIZATION_HEADER_KEY}
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: Dockerfile
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
         REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
         REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
+        REACT_APP_JUSTPAY_CLIENT_AND_MERCHANT_KEY: ${REACT_APP_JUSTPAY_CLIENT_AND_MERCHANT_KEY}
+        REACT_APP_MERCHANT_KEY_ID: ${REACT_APP_MERCHANT_KEY_ID}
+        REACT_APP_PAYMENT_SDK_ENV: ${REACT_APP_PAYMENT_SDK_ENV}
+        REACT_APP_PAYMENT_SERVICE_URL: ${REACT_APP_PAYMENT_SERVICE_URL}
+        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
     container_name: biap-app-ui-front
     #    depends_on:
     #      - biap-bap-client
@@ -52,6 +73,9 @@ services:
       REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
       REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
       REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
+    depends_on:
+      - mmi-client
+      - biap-client-node-js
     expose:
       - 80
     ports:
@@ -69,3 +93,50 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  biap-client-node-js:
+    build:
+      context: biap-client-node-js
+      args:
+        JUSPAY_SECRET_KEY_PATH: ${JUSPAY_SECRET_KEY_PATH}
+        JUSPAY_BASE_URL: ${JUSPAY_BASE_URL}
+        JUSPAY_MERCHANT_ID: ${JUSPAY_MERCHANT_ID}
+        JUSPAY_API_KEY: ${JUSPAY_API_KEY}
+        FIREBASE_ADMIN_SERVICE_ACCOUNT: ${FIREBASE_ADMIN_SERVICE_ACCOUNT}
+        ONDC_BASE_API_URL: ${ONDC_BASE_API_URL}
+        JUSPAY_WEBHOOK_USERNAME: ${JUSPAY_WEBHOOK_USERNAME}
+        JUSPAY_WEBHOOK_PASSWORD: ${JUSPAY_WEBHOOK_PASSWORD}
+        DOMAIN: ${DOMAIN}
+        CITY: ${CITY}
+        COUNTRY: ${COUNTRY}
+        BAP_ID: ${BAP_ID}
+        BAP_URL: ${BAP_URL}
+        PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
+        DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
+        BPP_PRIVATE_KEY: ${BPP_PRIVATE_KEY}
+        BPP_PUBLIC_KEY: ${BPP_PUBLIC_KEY}
+        BPP_UNIQUE_KEY_ID: ${BPP_UNIQUE_KEY_ID}
+        PORT: 3000
+        NODE_DEV: dev
+        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    depends_on:
+      - mongo
+
+  py-ondc-protocol:
+    image: navdeep710/ondc-python-protocol-layer:v2
+    container_name: py-ondc-protocol
+    environment:
+      ENV: prod
+      MONGO_DATABASE_HOST: mongo
+      BAP_URL: ${BAP_URL}
+    ports:
+      - 5555:5555
+    expose:
+      - 5555
+
+
+
