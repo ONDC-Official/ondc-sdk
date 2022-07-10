@@ -1,3 +1,4 @@
 *.idea*
 .env
 firebase_config.json
+.env*
