@@ -1,0 +1,58 @@
+---
+- name: Update web servers
+  hosts: ondc-reference-app-stage
+  remote_user: ubuntu
+
+  vars_prompt:
+
+    - name: domain
+      prompt: please enter the domain which will be serving the requests
+      private: no
+
+  tasks:
+    - name: Clone biap-client-node-js
+      git:
+        repo: 'https://github.com/Open-network-for-digital-commerce/biap-client-node-js.git'
+        dest: "/home/ubuntu/biap-client-node-js"
+        version: 'master'
+
+    - name: Clone biap ui
+      git:
+        repo: "https://github.com/Open-network-for-digital-commerce/biap-app-ui-front.git"
+        dest: "/home/ubuntu/biap-app-ui-front"
+        version: 'master'
+        force: yes
+
+    - name: Copy config directory
+      copy:
+        src: "{{ playbook_dir }}/../biap-client-node-js/config"
+        dest: "/home/ubuntu/biap-client-node-js/"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: "0755"
+
+    - name: copy Dockerfile without SSL as dockerfile in biap-app-ui-front
+      copy:
+        src: "{{ playbook_dir }}/../biap-app-ui-front/Dockerfile"
+        dest: "/home/ubuntu/biap-app-ui-front/Dockerfile"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: "0755"
+
+    - name: copy nginx conf with ssl
+      copy:
+        src: "{{ playbook_dir }}/../biap-app-ui-front/nginx-replace-with-domain.conf"
+        dest: "/home/ubuntu/biap-app-ui-front/nginx.conf"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: "0755"
+
+    - name: replace __domain__ with domain name
+      replace:
+        path: "/home/ubuntu/biap-app-ui-front/nginx.conf"
+        regexp: "__domain_name__"
+        replace: "{{ domain }}"
+
+
+    - name: Run docker compose up
+      shell: "cd /home/ubuntu/ && sudo docker-compose build && sudo docker-compose up -d"
