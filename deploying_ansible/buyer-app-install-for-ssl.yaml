@@ -1,9 +1,12 @@
 ---
 - name: Update web servers
-  hosts: ondc-reference-app-stage
+  hosts: '{{ target }}'
   remote_user: ubuntu
 
   vars_prompt:
+    - name: target
+      prompt: enter the hostname which you might have mentioned in host file
+      private: no
 
     - name: domain
       prompt: please enter the domain which will be serving the requests
@@ -12,6 +15,8 @@
     - name: envtype
       prompt: please enter the env file to copy, we are appending to .env, hence value can be -staging etc
       private: no
+
+
 
 
   tasks:
@@ -64,6 +69,7 @@
         path: "/home/ubuntu/biap-app-ui-front/nginx-without-ssl.conf"
         regexp: "__domain_name__"
         replace: "{{ domain }}"
+
 
     - name: copy env file with domain replaced
       copy:

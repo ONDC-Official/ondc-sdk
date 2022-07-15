@@ -1,8 +1,12 @@
-[ondc-reference-app-stage]
+[stage]
 13.234.78.70
 
+[preprod]
+65.0.80.129
+
 [defaults]
-[ondc-reference-app-stage:vars]
+[stage:vars]
+[preprod:vars]
 ansible_ssh_user=ubuntu
 ansible_ssh_private_key_file=/Users/navdeepagarwal/.ondc/ondc-prod-prod-ondc-ec2-key-pair-ssh-key
 ansible_python_interpreter=/usr/bin/python3

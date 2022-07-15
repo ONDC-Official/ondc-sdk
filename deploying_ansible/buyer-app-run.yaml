@@ -1,12 +1,19 @@
 ---
 - name: Update web servers
-  hosts: ondc-reference-app-stage
+  hosts: '{{ target }}'
   remote_user: ubuntu
 
   vars_prompt:
+    - name: target
+      prompt: enter the hostname which you might have mentioned in host file
+      private: no
 
     - name: domain
       prompt: please enter the domain which will be serving the requests
+      private: no
+
+    - name: envtype
+      prompt: please enter the env file to copy, we are appending to .env, hence value can be -staging etc
       private: no
 
   tasks:
