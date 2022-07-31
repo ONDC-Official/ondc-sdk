@@ -36,7 +36,7 @@ services:
       - 9001
 
   mmi-client:
-    image: navdeep710/ondc-ancillary-services:v2
+    image: navdeep710/ondc-ancillary-services:v3
     container_name: map-client
     environment:
       ENV: prod
