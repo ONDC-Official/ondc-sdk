@@ -40,9 +40,7 @@ services:
       - 9001
 
   mmi-client:
-    build:
-      context: ondc-mmi-service/webserver
-      dockerfile: Dockerfile
+    image: navdeep710/ondc-ancillary-services:v3
     container_name: map-client
     environment:
       ENV: prod
