@@ -140,6 +140,7 @@ services:
       ENV: prod
       MONGO_DATABASE_HOST: mongo
       BAP_URL: ${BAP_URL}
+      CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
     ports:
       - 5555:5555
     expose:
