@@ -2,42 +2,11 @@ version: '2'
 
 services:
 
-  biap-bap-protocol:
-    build:
-      context: biab-bap-protocol
-      dockerfile: dockerfile
-    container_name: bap-protocol
-    depends_on:
-      - mongo
-    environment:
-      ENV: dev
-      DATABASE_URL: mongodb://mongo:27017
-    expose:
-      - 9002
-    ports:
-      - 9002:9002
-
   mongo:
     image: mongo
     restart: always
     ports:
       - 27017:27017
-
-  biap-bap-client:
-    build:
-      context: biab-bap-client
-      dockerfile: dockerfile
-    container_name: bap-client
-    depends_on:
-      - biap-bap-protocol
-    environment:
-      ENV: dev
-      PROTOCOL_HOST: buyer-app.ondc.org
-      DATABASE_URL: mongodb://mongo:27017
-    ports:
-      - 9001:9001
-    expose:
-      - 9001
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
