@@ -2,47 +2,14 @@ version: '2'
 
 services:
 
-  biap-bap-protocol:
-    build:
-      context: biab-bap-protocol
-      dockerfile: dockerfile
-    container_name: bap-protocol
-    depends_on:
-      - mongo
-    environment:
-      ENV: dev
-      DATABASE_URL: mongodb://mongo:27017
-    expose:
-      - 9002
-    ports:
-      - 9002:9002
-
   mongo:
     image: mongo
     restart: always
     ports:
       - 27017:27017
 
-  biap-bap-client:
-    build:
-      context: biab-bap-client
-      dockerfile: dockerfile
-    container_name: bap-client
-    depends_on:
-      - biap-bap-protocol
-    environment:
-      ENV: dev
-      PROTOCOL_HOST: buyer-app.ondc.org
-      DATABASE_URL: mongodb://mongo:27017
-    ports:
-      - 9001:9001
-    expose:
-      - 9001
-
   mmi-client:
-    build:
-      context: ondc-mmi-service/webserver
-      dockerfile: Dockerfile
+    image: navdeep710/ondc-ancillary-services:v3
     container_name: map-client
     environment:
       ENV: prod
@@ -71,6 +38,8 @@ services:
         REACT_APP_MERCHANT_KEY_ID: ${REACT_APP_MERCHANT_KEY_ID}
         REACT_APP_PAYMENT_SDK_ENV: ${REACT_APP_PAYMENT_SDK_ENV}
         REACT_APP_PAYMENT_SERVICE_URL: ${REACT_APP_PAYMENT_SERVICE_URL}
+        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
+        REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
     container_name: biap-app-ui-front
     #    depends_on:
     #      - biap-bap-client
@@ -95,7 +64,6 @@ services:
   biap-client-node-js:
     build:
       context: biap-client-node-js
-      dockerfile: Dockerfile
       args:
         JUSPAY_SECRET_KEY_PATH: ${JUSPAY_SECRET_KEY_PATH}
         JUSPAY_BASE_URL: ${JUSPAY_BASE_URL}
@@ -108,15 +76,16 @@ services:
         DOMAIN: ${DOMAIN}
         CITY: ${CITY}
         COUNTRY: ${COUNTRY}
-        BAP_ID: "buyer-app.ondc.org"
+        BAP_ID: ${BAP_ID}
         BAP_URL: ${BAP_URL}
         PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
         DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
-        BPP_PRIVATE_KEY: ${BPP_PRIVATE_KEY}
-        BPP_PUBLIC_KEY: ${BPP_PUBLIC_KEY}
-        BPP_UNIQUE_KEY_ID: ${BPP_UNIQUE_KEY_ID}
+        BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
+        BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
+        BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
         PORT: 3000
         NODE_DEV: dev
+        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
     ports:
       - 3000:3000
     expose:
@@ -125,9 +94,7 @@ services:
       - mongo
 
   py-ondc-protocol:
-    build:
-      context: py-ondc-protocol/webserver
-      dockerfile: Dockerfile
+    image: navdeep710/ondc-python-protocol-layer:v2
     container_name: py-ondc-protocol
     environment:
       ENV: prod

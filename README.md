@@ -40,3 +40,19 @@ location /.well-known/acme-challenge/ {
         root /var/www/certbot;
     }
 ```
+
+# HOW to run locally
+1) you need a ngrok instance to be running locally so you can publish yourself to the internet
+2) install ngrok
+   1) brew install --cask ngrok 
+```bash
+```shell
+ngrok http 8080
+```
+3) copy the url to the clipboard
+4) now we need to setup the docker-compose env file
+5) pick the .env-local file and ask the admin for keys that need to replaced
+6) run
+```shell
+docker-compose -f docker-compose-without-ssl.yaml up -d
+``` 
