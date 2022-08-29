@@ -31,6 +31,7 @@ services:
       dockerfile: Dockerfile
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+        REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
         REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
         REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -38,11 +39,13 @@ services:
         REACT_APP_MERCHANT_KEY_ID: ${REACT_APP_MERCHANT_KEY_ID}
         REACT_APP_PAYMENT_SDK_ENV: ${REACT_APP_PAYMENT_SDK_ENV}
         REACT_APP_PAYMENT_SERVICE_URL: ${REACT_APP_PAYMENT_SERVICE_URL}
+        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
     container_name: biap-app-ui-front
     #    depends_on:
     #      - biap-bap-client
     environment:
       REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+      REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
       REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
       REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
       REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -58,7 +61,6 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
-
   certbot:
     image: certbot/certbot
     restart: "always"
@@ -70,7 +72,6 @@ services:
   biap-client-node-js:
     build:
       context: biap-client-node-js
-      dockerfile: Dockerfile
       args:
         JUSPAY_SECRET_KEY_PATH: ${JUSPAY_SECRET_KEY_PATH}
         JUSPAY_BASE_URL: ${JUSPAY_BASE_URL}
@@ -83,13 +84,13 @@ services:
         DOMAIN: ${DOMAIN}
         CITY: ${CITY}
         COUNTRY: ${COUNTRY}
-        BAP_ID: "buyer-app.ondc.org"
+        BAP_ID: ${BAP_ID}
         BAP_URL: ${BAP_URL}
         PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
         DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
-        BPP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
-        BPP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
-        BPP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
+        BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
+        BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
+        BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
         REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
         PORT: 3000
         NODE_DEV: dev
@@ -110,9 +111,11 @@ services:
       MONGO_DATABASE_HOST: mongo
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
+      BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
     ports:
       - 5555:5555
     expose:
       - 5555
+
 
 
