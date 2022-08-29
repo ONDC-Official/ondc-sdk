@@ -1,15 +1,3 @@
-[submodule "beckn-protocol-specs"]
-	url = git@github.com:Open-network-for-digital-commerce/beckn-protocol-specs.git
-    path = beckn-protocol-specs
-[submodule "biab-bap-protocol"]
-	path = biab-bap-protocol
-    url = git@github.com:dataorchestration/biab-bap-protocol.git
-[submodule "biab-bap-client"]
-	path = biab-bap-client
-    url = git@github.com:dataorchestration/biab-bap-client.git
-[submodule "beckn-protocol-dtos"]
-	path = beckn-protocol-dtos
-    url = git@github.com:beckn/beckn-protocol-dtos.git
 [submodule "biap-app-ui-front"]
 	path = biap-app-ui-front
 	url = git@github.com:Open-network-for-digital-commerce/biap-app-ui-front.git
