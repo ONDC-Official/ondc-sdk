@@ -10,7 +10,7 @@
 ngrok http 5555
 ```
 
-4) Copy the url to the clipboard
+4) Copy the url to the clipboard and paste in `BAP_URL` and `PROTOCOL_BASE_URL` in .env-local
 5) Now we need to setup the docker-compose env file
 6) Pick the .env-local file and ask the admin for keys that need to replaced
 7) Get `firebase-service-account.json` and `juspay.pem` from admin and place them under the
