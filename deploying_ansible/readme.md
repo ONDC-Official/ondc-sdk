@@ -5,3 +5,9 @@ please enter the domain which will be serving the requests: buyer-app-preprod.on
 please enter the env file to copy, we are appending to .env, hence value can be -staging etc: -preprod
 
 ```
+
+```bash
+earlier legacy ip
+13.235.14.111
+```
+

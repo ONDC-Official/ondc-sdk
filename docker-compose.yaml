@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - 27017:27017
+    volumes:
+      - './data:/data/db'biap-bap-client
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3

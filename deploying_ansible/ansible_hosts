@@ -4,9 +4,13 @@
 [preprod]
 65.0.80.129
 
+[legacy]
+52.66.197.85
+
 [defaults]
 [stage:vars]
 [preprod:vars]
+[legacy:vars]
 ansible_ssh_user=ubuntu
 ansible_ssh_private_key_file=/Users/navdeepagarwal/.ondc/ondc-prod-prod-ondc-ec2-key-pair-ssh-key
 ansible_python_interpreter=/usr/bin/python3
