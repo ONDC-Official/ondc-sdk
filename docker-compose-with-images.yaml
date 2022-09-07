@@ -104,7 +104,7 @@ services:
       - mongo
 
   py-ondc-protocol:
-    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v6.1
+    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.0
     container_name: py-ondc-protocol
     environment:
       ENV: prod
