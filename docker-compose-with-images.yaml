@@ -1,7 +1,6 @@
 version: '2'
 
 services:
-
   mongo:
     image: mongo
     restart: always
@@ -9,6 +8,7 @@ services:
       - 27017:27017
     volumes:
       - './data:/data/db'
+
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
@@ -30,10 +30,8 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: Dockerfile
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
-        REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
         REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
         REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -47,7 +45,6 @@ services:
     #      - biap-bap-client
     environment:
       REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
-      REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
       REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
       REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
       REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -62,6 +59,7 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+
 
   certbot:
     image: certbot/certbot
@@ -96,6 +94,10 @@ services:
         PORT: 3000
         NODE_DEV: dev
         REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
+        ENV_TYPE: ${ENV_TYPE}
+        BAP_FINDER_FEE_TYPE: ${BAP_FINDER_FEE_TYPE}
+        BAP_FINDER_FEE_AMOUNT: ${BAP_FINDER_FEE_AMOUNT}
+        SSE_TIMEOUT: ${SSE_TIMEOUT}
     ports:
       - 3000:3000
     expose:
@@ -107,8 +109,8 @@ services:
     image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.0
     container_name: py-ondc-protocol
     environment:
-      ENV: prod
-      MONGO_DATABASE_HOST: mongo
+      ENV: ${PROTOCOL_ENV}
+      MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
@@ -116,6 +118,3 @@ services:
       - 5555:5555
     expose:
       - 5555
-
-
-

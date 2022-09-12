@@ -93,9 +93,12 @@ services:
         BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
         BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
         BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
-        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
         PORT: 3000
-        NODE_DEV: dev
+        REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
+        ENV_TYPE: ${ENV_TYPE}
+        BAP_FINDER_FEE_TYPE: ${BAP_FINDER_FEE_TYPE}
+        BAP_FINDER_FEE_AMOUNT: ${BAP_FINDER_FEE_AMOUNT}
+        SSE_TIMEOUT: ${SSE_TIMEOUT}
     ports:
       - 3000:3000
     expose:
@@ -109,8 +112,8 @@ services:
       dockerfile: Dockerfile
     container_name: py-ondc-protocol
     environment:
-      ENV: prod
-      MONGO_DATABASE_HOST: mongo
+      ENV: ${PROTOCOL_ENV}
+      MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
