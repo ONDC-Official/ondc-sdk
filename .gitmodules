@@ -3,7 +3,7 @@
 	url = git@github.com:Open-network-for-digital-commerce/biap-app-ui-front.git
 [submodule "ondc-mmi-service"]
 	path = ondc-mmi-service
-	url = git@github.com:ONDC-Official/ondc-buyer-app-ancillaries.git
+	url = git@github.com:ONDC-Official/mmi-service-template.git
 [submodule "biap-client-node-js"]
 	path = biap-client-node-js
 	url = git@github.com:Open-network-for-digital-commerce/biap-client-node-js.git
