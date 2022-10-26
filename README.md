@@ -1,3 +1,20 @@
+# Introduction 
+
+This repo is ONDC Buyer App with microservice architecture
+which contains
+ - protocol layer(python)
+ - client API layer (node js)
+ - front app(react) being served via nginx
+ - ancillary API (python) - flask apis for utilities like mapmyindia, knowlarity
+composed together with docker-compose.yaml
+
+# for whom
+
+- wants to refer the buyer app 
+- wants the same setup to be available in their infra
+- pick any component of it and use separately
+
+
 # HOW to run locally
 
 1) Make sure you've pulled all
