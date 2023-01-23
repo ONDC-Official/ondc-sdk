@@ -108,14 +108,16 @@ services:
       - mongo
 
   py-ondc-protocol:
-    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.1.1
+    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}
       MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
+      REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
+      VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
     ports:
       - 5555:5555
     expose:
