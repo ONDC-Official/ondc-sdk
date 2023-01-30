@@ -30,7 +30,6 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: DockerfileWithoutSSL
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
@@ -88,6 +87,10 @@ services:
         PORT: 3000
         NODE_DEV: dev
         REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
+        ENV_TYPE: ${ENV_TYPE}
+        BAP_FINDER_FEE_TYPE: ${BAP_FINDER_FEE_TYPE}
+        BAP_FINDER_FEE_AMOUNT: ${BAP_FINDER_FEE_AMOUNT}
+        SSE_TIMEOUT: ${SSE_TIMEOUT}
     ports:
       - 3000:3000
     expose:
@@ -96,7 +99,8 @@ services:
       - mongo
 
   py-ondc-protocol:
-    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
+    build:
+      context: biab-bap-protocol
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}

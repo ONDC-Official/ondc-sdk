@@ -106,7 +106,8 @@ services:
       - mongo
 
   py-ondc-protocol:
-    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
+    build:
+      context: biab-bap-protocol
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}
