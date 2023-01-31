@@ -1,3 +1,6 @@
+# User Manual
+  A detailed user manual for the buyer reference app is available [here](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit?usp=sharing) 
+  
 # Introduction 
 
 This repo is ONDC Buyer App with microservice architecture
