@@ -8,11 +8,11 @@ A buyer app refers to any application that will help sellers interact with the b
 
 ## Tech Stack
 
-**Client:** React JS, Redux, Javascript
-
-**Server:** Node JS, Express, Python, Nginx
-
-**Database:** MongoDB
+|  Type |       Technologies               |
+| :-------- |:-------------------------------- |
+| **Client**     | React JS, Redux, Javascript
+| **Server**     | Node JS, Express, Python, Nginx |
+| **Database**     | MongoDB |
 
 ONDC's buyer app uses a modern technical stack for web, mobile, and server-side development. The client layer of the web application is built using React JS v17, while the mobile app is built using React Native 18. Node JS v16 is used for server-side development, and Python v3.7 is used for the protocol layer.
 
