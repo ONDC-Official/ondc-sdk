@@ -1,12 +1,12 @@
 [submodule "biap-app-ui-front"]
 	path = biap-app-ui-front
-	url = git@github.com:Open-network-for-digital-commerce/biap-app-ui-front.git
+	url = https://github.com/robin-chauhan1/biap-app-ui-front.git
 [submodule "ondc-mmi-service"]
 	path = ondc-mmi-service
-	url = git@github.com:ONDC-Official/mmi-service-template.git
+	url = https://github.com/sharmasahil0331/mmi-service-template
 [submodule "biap-client-node-js"]
 	path = biap-client-node-js
-	url = git@github.com:Open-network-for-digital-commerce/biap-client-node-js.git
+	url = https://github.com/sharmasahil0331/biap-client-node-js
 [submodule "py-ondc-protocol"]
 	path = py-ondc-protocol
-	url = git@github.com:ONDC-Official/py-protocol-layer.git
+	url = https://github.com/sharmasahil0331/py-protocol-layer
