@@ -40,7 +40,7 @@ Clone the Buyer App ONDC SDK repository
   git clone https://github.com/ONDC-Official/ondc-sdk.git
 ```
 
-Git repositories contain submodules that must be fetched. It requires HTTP-based URL by default in the ```.gitmodules``` file. Copy this into .gitsubmodules file
+Git repositories contain submodules that must be fetched. It requires HTTP-based URL by default in the ```.gitmodules``` file. Copy this into ```.gitmodules```  file
 
 ```bash
 [submodule "biap-app-ui-front"]
