@@ -4,7 +4,7 @@ A buyer app refers to any application that will help sellers interact with the b
 
 ## Documentation
 
-[Documentation](https://linktodocumentation)
+[Documentation](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
 
 ## Tech Stack
 
