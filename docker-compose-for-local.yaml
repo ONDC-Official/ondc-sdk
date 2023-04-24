@@ -1,14 +1,13 @@
-version: '2'
+version: "2"
 
 services:
-
   mongo:
     image: mongo
     restart: always
     ports:
       - 27017:27017
     volumes:
-      - './data:/data/db'
+      - "./data:/data/db"
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
@@ -107,18 +106,50 @@ services:
     depends_on:
       - mongo
 
+  biap-igm-node-js:
+    build:
+      context: biap-igm-node-js
+    environment:
+      DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
+      PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
+      SSE_TIMEOUT: ${SSE_TIMEOUT}
+      DOMAIN: ${DOMAIN}
+      COUNTRY: ${COUNTRY}
+      BAP_ID: ${BAP_ID}
+      EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
+      EXPECTED_RESOLUTION_TIME: ${EXPECTED_RESOLUTION_TIME}
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BAP_URL: ${BAP_URL}
+    ports:
+      - "8989:6969"
+    expose:
+      - 8989
+    depends_on:
+      - mongo
+    volumes:
+      - "./images:/app/images"
+    restart: always
+
   py-ondc-protocol:
-    image: navdeep710/ondc-protocol-layer-server:pr-sse-v7.8
+    # image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
+    build:
+      context: py-ondc-protocol/webserver
+      dockerfile: Dockerfile
     container_name: py-ondc-protocol
     environment:
-      ENV: ${PROTOCOL_ENV}
+      ENV: prod
       MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
       REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
       VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
+      BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
+      BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
+      BAP_ID: ${BAP_ID}
     ports:
       - 5555:5555
     expose:
       - 5555
+    depends_on:
+      - mongo

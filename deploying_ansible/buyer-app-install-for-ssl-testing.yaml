@@ -62,7 +62,7 @@
 
     - name: copy Dockerfile without SSL as dockerfile in biap-app-ui-front
       copy:
-        src: "{{ playbook_dir }}/../biap-app-ui-front/DockerfileWithoutSSL"
+        src: "{{ playbook_dir }}/../biap-app-ui-front/Dockerfile"
         dest: "/home/ubuntu/biap-app-ui-front/Dockerfile"
         owner: "ubuntu"
         group: "ubuntu"
@@ -70,7 +70,7 @@
 
     - name: replace __domain__ with in nginx.conf
       replace:
-        path: "/home/ubuntu/biap-app-ui-front/nginx-without-ssl.conf"
+        path: "/home/ubuntu/biap-app-ui-front/nginx-replace-with-domain.conf"
         regexp: "__domain_name__"
         replace: "{{ domain }}"
 
@@ -88,6 +88,11 @@
         regexp: "__domain_name__"
         replace: "{{ domain }}"
 
+    - name: Modify .env file
+      lineinfile:
+        path: .env
+        line: ENV_TYPE={{ target }}
+
     - name: Copy docker-compose file with domain replaced
       copy:
         src: "{{ playbook_dir }}/../docker-compose.yaml"
@@ -98,6 +103,10 @@
 
     - name: Run docker compose up
       shell: "cd /home/ubuntu/ && sudo docker-compose build && sudo docker-compose up -d"
+      register: out
+
+    - name: Docker-Compose Output
+      debug: var=out
 
     - name: run letsencrypt
       shell: "cd /home/ubuntu/ && sudo ./init-letsencrypt.sh"
