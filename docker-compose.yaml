@@ -1,14 +1,13 @@
-version: '2'
+version: "2"
 
 services:
-
   mongo:
     image: mongo
     restart: always
     ports:
       - 27017:27017
     volumes:
-      - './data:/data/db'biap-bap-client
+      - "./data:/data/db"
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
@@ -122,5 +121,32 @@ services:
     expose:
       - 5555
 
+  bugzilla-node-backend:
+    container_name: bugzilla-node-dev
+    build:
+      context: biap-bugzilla-service
+      dockerfile: Dockerfile
+    environment:
+      ENV: prod
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_BASE_URI: ${BUGZILLA_BASE_URI}
+    ports:
+      - "8001:8001"
+    expose:
+      - 8001
+    restart: always
 
-
+  bugzilla-dev-service:
+    build:
+      context: ./biap-bugzilla-service/bugzilla-main
+      dockerfile: Dockerfile
+    environment:
+      BUGZILLA_WWW: /var/www/html/bugzilla/
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+    container_name: bugzilla-dev-service
+    image: shameerkc/bugzilla-dev-sqlite
+    expose:
+      - 90
+    ports:
+      - "90:80"
+      - "5989:5900"
