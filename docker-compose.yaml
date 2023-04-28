@@ -105,6 +105,32 @@ services:
     depends_on:
       - mongo
 
+  biap-igm-node-js:
+    build:
+      context: biap-igm-node-js
+    environment:
+      DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
+      PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
+      SSE_TIMEOUT: ${SSE_TIMEOUT}
+      DOMAIN: ${DOMAIN}
+      COUNTRY: ${COUNTRY}
+      BAP_ID: ${BAP_ID}
+      EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
+      EXPECTED_RESOLUTION_TIME: ${EXPECTED_RESOLUTION_TIME}
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
+      BAP_URL: ${BAP_URL}
+    container_name: biap-igm-node-js
+    ports:
+      - "8989:6969"
+    expose:
+      - 8989
+    depends_on:
+      - mongo
+    volumes:
+      - "./images:/app/images"
+    restart: always
+
   py-ondc-protocol:
     build:
       context: py-ondc-protocol/webserver
@@ -145,8 +171,6 @@ services:
       BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
     container_name: bugzilla-dev-service
     image: shameerkc/bugzilla-dev-sqlite
-    expose:
-      - 90
     ports:
       - "90:80"
       - "5989:5900"
