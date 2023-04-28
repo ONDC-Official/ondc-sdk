@@ -121,6 +121,7 @@ services:
       BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
       BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
       BAP_URL: ${BAP_URL}
+    container_name: biap-igm-node-js
     ports:
       - "8989:6969"
     expose:
@@ -180,8 +181,6 @@ services:
       BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
     container_name: bugzilla-dev-service
     image: shameerkc/bugzilla-dev-sqlite
-    expose:
-      - 90
     ports:
       - "90:80"
       - "5989:5900"
