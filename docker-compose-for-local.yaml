@@ -56,7 +56,7 @@ services:
     expose:
       - 80
     ports:
-      - 82:80
+      - 80:80
       - 443:443
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
@@ -119,6 +119,7 @@ services:
       EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
       EXPECTED_RESOLUTION_TIME: ${EXPECTED_RESOLUTION_TIME}
       BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
       BAP_URL: ${BAP_URL}
     ports:
       - "8989:6969"
@@ -153,28 +154,30 @@ services:
       - 5555
     depends_on:
       - mongo
-  
+
   bugzilla-node-backend:
     container_name: bugzilla-node-dev
     build:
       context: biap-bugzilla-service
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.production
     environment:
       ENV: prod
       BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
       BUGZILLA_BASE_URI: ${BUGZILLA_BASE_URI}
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
     ports:
       - "8001:8001"
     expose:
       - 8001
     restart: always
-  
+
   bugzilla-dev-service:
     build:
       context: ./biap-bugzilla-service/bugzilla-main
       dockerfile: Dockerfile
     environment:
       BUGZILLA_WWW: /var/www/html/bugzilla/
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
     container_name: bugzilla-dev-service
     image: shameerkc/bugzilla-dev-sqlite
     expose:

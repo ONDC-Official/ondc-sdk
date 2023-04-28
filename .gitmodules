@@ -19,3 +19,4 @@
 [submodule "biap-bugzilla-service"]
 	path = biap-bugzilla-service
 	url = https://github.com/robin-chauhan1/ondc-bugzilla-serivce.git
+	branch = main
