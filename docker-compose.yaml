@@ -120,6 +120,7 @@ services:
       BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
       BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
       BAP_URL: ${BAP_URL}
+      VOLUME_IMAGES_BASE_URL: ${VOLUME_IMAGES_BASE_URL}
     container_name: biap-igm-node-js
     ports:
       - "8989:6969"
