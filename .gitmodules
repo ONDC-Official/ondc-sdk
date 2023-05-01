@@ -15,7 +15,7 @@
 [submodule "biap-igm-node-js"]
 	path = biap-igm-node-js
 	url = https://github.com/sharmasahil0331/biap-igm-node-js
-	branch = RATS_12
+	branch = develop
 [submodule "biap-bugzilla-service"]
 	path = biap-bugzilla-service
 	url = https://github.com/robin-chauhan1/ondc-bugzilla-serivce.git
