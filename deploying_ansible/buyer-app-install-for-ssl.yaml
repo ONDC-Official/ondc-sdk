@@ -1,6 +1,6 @@
 ---
 - name: Update web servers
-  hosts: '{{ target }}'
+  hosts: "{{ target }}"
   remote_user: ubuntu
 
   vars_prompt:
@@ -16,28 +16,54 @@
       prompt: please enter the env file to copy, we are appending to .env, hence value can be -staging etc
       private: no
 
-
-
-
   tasks:
     - name: Clone biap-client-node-js
       git:
-        repo: 'https://github.com/Open-network-for-digital-commerce/biap-client-node-js.git'
+        repo: "https://github.com/Open-network-for-digital-commerce/biap-client-node-js.git"
         dest: "/home/ubuntu/biap-client-node-js"
-        version: 'master'
+        version: "master"
         force: yes
 
     - name: Clone biap ui
       git:
         repo: "https://github.com/Open-network-for-digital-commerce/biap-app-ui-front.git"
         dest: "/home/ubuntu/biap-app-ui-front"
-        version: 'master'
+        version: "master"
+        force: yes
+
+    - name: Clone biap-bugzilla-service
+      git:
+        repo: "https://github.com/robin-chauhan1/ondc-bugzilla-serivce"
+        dest: "/home/ubuntu/biap-bugzilla-service"
+        version: "main"
+        force: yes
+
+    - name: Clone py ondc protocol
+      git:
+        repo: "https://github.com/sharmasahil0331/py-protocol-layer"
+        dest: "/home/ubuntu/py-ondc-protocol"
+        version: "master"
+        force: yes
+
+    - name: Clone biap-igm-node-js
+      git:
+        repo: "https://github.com/sharmasahil0331/biap-igm-node-js"
+        dest: "/home/ubuntu/biap-igm-node-js"
+        version: "main"
         force: yes
 
     - name: Copy config directory
       copy:
         src: "{{ playbook_dir }}/../biap-client-node-js/config"
         dest: "/home/ubuntu/biap-client-node-js/"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: "0755"
+
+    - name: Copy config directory for igm
+      copy:
+        src: "{{ playbook_dir }}/../biap-igm-node-js/config"
+        dest: "/home/ubuntu/biap-igm-node-js/"
         owner: "ubuntu"
         group: "ubuntu"
         mode: "0755"
@@ -70,7 +96,6 @@
         regexp: "__domain_name__"
         replace: "{{ domain }}"
 
-
     - name: copy env file with domain replaced
       copy:
         src: "{{ playbook_dir }}/../.env{{ envtype }}"
@@ -98,4 +123,3 @@
 
     - name: run letsencrypt
       shell: "cd /home/ubuntu/ && sudo ./init-letsencrypt.sh"
-
