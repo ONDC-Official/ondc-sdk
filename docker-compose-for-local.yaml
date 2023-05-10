@@ -134,10 +134,7 @@ services:
     restart: always
 
   py-ondc-protocol:
-    # image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
-    build:
-      context: py-ondc-protocol/webserver
-      dockerfile: Dockerfile
+    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
     container_name: py-ondc-protocol
     environment:
       ENV: prod

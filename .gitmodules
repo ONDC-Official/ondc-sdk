@@ -1,22 +1,22 @@
 [submodule "biap-app-ui-front"]
 	path = biap-app-ui-front
-	url = https://github.com/Abhi-ONDC/biap-app-ui-front.git
+	url = https://github.com/ONDC-Official/biap-app-ui-front.git
 	branch = master
 [submodule "ondc-mmi-service"]
 	path = ondc-mmi-service
-	url = https://github.com/sharmasahil0331/mmi-service-template
+	url = https://github.com/ONDC-Official/mmi-service-template.git
 [submodule "biap-client-node-js"]
 	path = biap-client-node-js
-	url = https://github.com/sharmasahil0331/biap-client-node-js
+	url = https://github.com/ONDC-Official/biap-client-node-js.git
 [submodule "py-ondc-protocol"]
 	path = py-ondc-protocol
-	url = https://github.com/sharmasahil0331/py-protocol-layer
+	url = https://github.com/ONDC-Official/py-protocol-layer.git
 	branch = master
 [submodule "biap-igm-node-js"]
 	path = biap-igm-node-js
-	url = https://github.com/sharmasahil0331/biap-igm-node-js
+	url = https://github.com/ONDC-Official/biap-igm-node-js.git
 	branch = main
 [submodule "biap-bugzilla-service"]
 	path = biap-bugzilla-service
-	url = https://github.com/robin-chauhan1/ondc-bugzilla-serivce.git
+	url = https://github.com/ONDC-Official/biap-bugzilla-service
 	branch = main
