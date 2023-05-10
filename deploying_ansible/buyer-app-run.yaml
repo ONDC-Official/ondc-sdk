@@ -25,7 +25,7 @@
 
     - name: Clone biap ui
       git:
-        repo: "https://github.com/Abhi-ONDC/biap-app-ui-front.git"
+        repo: "https://github.com/ONDC-Official/biap-app-ui-front.git"
         dest: "/home/ubuntu/biap-app-ui-front"
         version: "master"
 
@@ -37,7 +37,7 @@
 
     - name: Clone py ondc protocol
       git:
-        repo: "https://github.com/sharmasahil0331/py-protocol-layer"
+        repo: "https://github.com/ONDC-Official/py-protocol-layer.git"
         dest: "/home/ubuntu/py-ondc-protocol"
         version: "master"
 

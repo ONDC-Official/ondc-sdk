@@ -33,21 +33,21 @@
 
     - name: Clone biap-bugzilla-service
       git:
-        repo: "https://github.com/robin-chauhan1/ondc-bugzilla-serivce"
+        repo: "https://github.com/ONDC-Official/biap-bugzilla-service"
         dest: "/home/ubuntu/biap-bugzilla-service"
         version: "main"
         force: yes
 
     - name: Clone py ondc protocol
       git:
-        repo: "https://github.com/sharmasahil0331/py-protocol-layer"
+        repo: "https://github.com/ONDC-Official/py-protocol-layer.git"
         dest: "/home/ubuntu/py-ondc-protocol"
         version: "master"
         force: yes
 
     - name: Clone biap-igm-node-js
       git:
-        repo: "https://github.com/sharmasahil0331/biap-igm-node-js"
+        repo: "https://github.com/ONDC-Official/biap-igm-node-js.git"
         dest: "/home/ubuntu/biap-igm-node-js"
         version: "main"
         force: yes
