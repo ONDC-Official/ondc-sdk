@@ -9,6 +9,7 @@ services:
     volumes:
       - "./data:/data/db"
 
+
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
     container_name: map-client
