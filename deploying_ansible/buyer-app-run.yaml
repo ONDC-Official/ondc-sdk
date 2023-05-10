@@ -19,7 +19,7 @@
   tasks:
     - name: Clone biap-client-node-js
       git:
-        repo: "https://github.com/sharmasahil0331/biap-client-node-js"
+        repo: "https://github.com/ONDC-Official/biap-client-node-js.git"
         dest: "/home/ubuntu/biap-client-node-js"
         version: "master"
 
@@ -31,7 +31,7 @@
 
     - name: Clone biap-igm-node-js
       git:
-        repo: "https://github.com/sharmasahil0331/biap-igm-node-js"
+        repo: "https://github.com/ONDC-Official/biap-igm-node-js.git"
         dest: "/home/ubuntu/biap-igm-node-js"
         version: "main"
 
@@ -43,7 +43,7 @@
 
     - name: Clone biap-bugzilla-service
       git:
-        repo: "https://github.com/robin-chauhan1/ondc-bugzilla-serivce"
+        repo: "https://github.com/ONDC-Official/biap-bugzilla-service"
         dest: "/home/ubuntu/biap-bugzilla-service"
         version: "main"
 
