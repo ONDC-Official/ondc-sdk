@@ -134,10 +134,10 @@ services:
     restart: always
 
   py-ondc-protocol:
-    image: adityapatil123/ondc-python-protocol-layer:pr-sse-v7.4.2
+    image: navdeep710/ondc-protocol-layer-server:pr-sse-v7.8
     container_name: py-ondc-protocol
     environment:
-      ENV: prod
+      ENV: ${PROTOCOL_ENV}
       MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
