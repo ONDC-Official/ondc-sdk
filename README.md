@@ -71,7 +71,7 @@ git submodule update
 
 
 ## Environment Variables
-To get Environment Variables, Registeration is required to access certain services.
+To get Environment Variables, Registration is required to access certain services.
 
 
 **A. Payment gateway**
@@ -172,7 +172,7 @@ copy the url to the clipboard and paste it into ``` BAP_URL ``` and ```PROTOCOL_
 
  
 
-## Generate Payload For ONDC Registeration
+## Generate Payload For ONDC Registration
 
 ```bash
 
@@ -208,7 +208,7 @@ copy the url to the clipboard and paste it into ``` BAP_URL ``` and ```PROTOCOL_
 ```BAP_ID=``` This will be the ```HOSTED_DOMAIN ```that you are sharing in the payload as the value of subscriber_id.
 
 
-## Payload Submission To ONDC Staging Registery
+## Payload Submission To ONDC Staging Registry
 
 Visit this [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdz5-LLGX4m_pOQNFstoZQd5zhb68md_9zoX-dC8N8j2DABbA/viewform) and fill it out carefully.
 
