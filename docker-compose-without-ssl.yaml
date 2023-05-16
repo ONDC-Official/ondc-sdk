@@ -1,14 +1,13 @@
-version: '2'
+version: "2"
 
 services:
-
   mongo:
     image: mongo
     restart: always
     ports:
       - 27017:27017
     volumes:
-      - './data:/data/db'
+      - "./data:/data/db"
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
@@ -60,7 +59,6 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-
 
   biap-client-node-js:
     build:
@@ -114,5 +112,3 @@ services:
       - 5555:5555
     expose:
       - 5555
-
-
