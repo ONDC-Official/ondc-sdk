@@ -98,7 +98,7 @@ services:
 
   py-ondc-protocol:
     build:
-      context: biab-bap-protocol
+      context: py-ondc-protocol
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}
