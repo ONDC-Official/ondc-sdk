@@ -5,13 +5,16 @@
 13.234.78.70
 
 [preprod]
-65.0.80.129
+43.205.208.46
 
 [legacy]
 52.66.197.85
 
 [prod]
 52.66.207.19
+
+[dev-internal]
+ondc-ref-app-buyer-dev-internal
 
 [defaults]
 [testing:vars]

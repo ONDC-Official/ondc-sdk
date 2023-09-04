@@ -9,7 +9,7 @@
       private: no
 
     - name: domain
-      prompt: please enter the domain which will be serving the requests
+      prompt: please enter the domain which will be serving the requests like buyer-app-preprod.ondc.org
       private: no
 
     - name: envtype
@@ -23,11 +23,19 @@
         dest: "/home/ubuntu/biap-client-node-js"
         version: "master"
 
-    - name: Clone biap ui
-      git:
-        repo: "https://github.com/ONDC-Official/biap-app-ui-front.git"
-        dest: "/home/ubuntu/biap-app-ui-front"
-        version: "master"
+    - name: Copy docker-compose file with domain replaced
+      copy:
+        src: "{{ playbook_dir }}/../docker-compose.yml"
+        dest: "/home/ubuntu/docker-compose.yml"
+        owner: "ubuntu"
+        group: "ubuntu"
+        mode: "0755"
+
+#    - name: Clone biap ui
+#      git:
+#        repo: "https://github.com/ONDC-Official/biap-app-ui-front.git"
+#        dest: "/home/ubuntu/biap-app-ui-front"
+#        version: "master"
 
     - name: Clone biap-igm-node-js
       git:

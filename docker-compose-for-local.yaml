@@ -29,7 +29,7 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: DockerfileWithoutSSL
+      dockerfile: Dockerfile
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
         REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
@@ -71,6 +71,7 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   biap-client-node-js:
+    restart: "always"
     build:
       context: biap-client-node-js
       args:
