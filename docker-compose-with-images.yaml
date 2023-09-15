@@ -107,8 +107,8 @@ services:
 
   py-ondc-protocol:
     build:
-      context: biab-bap-protocol
-    container_name: py-ondc-protocol
+      context: py-ondc-protocol
+    container_name: py-ondc-protocol/webserver
     environment:
       ENV: ${PROTOCOL_ENV}
       MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
@@ -121,3 +121,48 @@ services:
       - 5555:5555
     expose:
       - 5555
+
+  biap-igm-node-js:
+    build:
+      context: biap-igm-node-js
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+    environment:
+      DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
+      PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
+      SSE_TIMEOUT: ${SSE_TIMEOUT}
+      DOMAIN: ${DOMAIN}
+      COUNTRY: ${COUNTRY}
+      BAP_ID: ${BAP_ID}
+      EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
+      EXPECTED_RESOLUTION_TIME: ${EXPECTED_RESOLUTION_TIME}
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
+      BAP_URL: ${BAP_URL}
+      VOLUME_IMAGES_BASE_URL: ${VOLUME_IMAGES_BASE_URL}
+    container_name: biap-igm-node-js
+    ports:
+      - "8989:6969"
+    expose:
+      - 8989
+    depends_on:
+      - mongo
+    volumes:
+      - "./images:/app/images"
+    restart: always
+
+  bugzilla-dev-service:
+    build:
+      context: ./biap-bugzilla-service/bugzilla-main
+      dockerfile: Dockerfile
+    environment:
+      BUGZILLA_WWW: /var/www/html/bugzilla/
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+    container_name: bugzilla-dev-service
+    image: shameerkc/bugzilla-dev-sqlite
+    ports:
+      - "90:80"
+      - "5989:5900"
