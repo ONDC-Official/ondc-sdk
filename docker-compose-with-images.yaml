@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 
 services:
   mongo:
@@ -7,8 +7,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - './data:/data/db'
-
+      - "./data:/data/db"
 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
@@ -30,8 +29,10 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
+      dockerfile: Dockerfile
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+        REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
         REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
         REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -45,6 +46,7 @@ services:
     #      - biap-bap-client
     environment:
       REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+      REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
       REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
       REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
       REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -60,7 +62,6 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
-
   certbot:
     image: certbot/certbot
     restart: "always"
@@ -70,6 +71,7 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   biap-client-node-js:
+    restart: "always"
     build:
       context: biap-client-node-js
       args:
@@ -105,31 +107,9 @@ services:
     depends_on:
       - mongo
 
-  py-ondc-protocol:
-    build:
-      context: py-ondc-protocol
-    container_name: py-ondc-protocol/webserver
-    environment:
-      ENV: ${PROTOCOL_ENV}
-      MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
-      BAP_URL: ${BAP_URL}
-      CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
-      REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
-      BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
-      VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
-    ports:
-      - 5555:5555
-    expose:
-      - 5555
-
   biap-igm-node-js:
     build:
       context: biap-igm-node-js
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "3"
     environment:
       DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
       PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
@@ -152,6 +132,43 @@ services:
       - mongo
     volumes:
       - "./images:/app/images"
+    restart: always
+
+  py-ondc-protocol:
+    image: navdeep710/ondc-protocol-layer-server:pr-sse-v7.8
+    container_name: py-ondc-protocol
+    environment:
+      ENV: ${PROTOCOL_ENV}
+      MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
+      BAP_URL: ${BAP_URL}
+      CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
+      REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
+      BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
+      VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
+      BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
+      BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
+      BAP_ID: ${BAP_ID}
+    ports:
+      - 5555:5555
+    expose:
+      - 5555
+    depends_on:
+      - mongo
+
+  bugzilla-node-backend:
+    container_name: bugzilla-node-dev
+    build:
+      context: biap-bugzilla-service
+      dockerfile: Dockerfile.production
+    environment:
+      ENV: prod
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_BASE_URI: ${BUGZILLA_BASE_URI}
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+    ports:
+      - "8001:8001"
+    expose:
+      - 8001
     restart: always
 
   bugzilla-dev-service:

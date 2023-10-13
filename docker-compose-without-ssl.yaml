@@ -29,8 +29,10 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
+      dockerfile: DockerfileWithoutSSL
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+        REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
         REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
         REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
         REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -39,12 +41,12 @@ services:
         REACT_APP_PAYMENT_SDK_ENV: ${REACT_APP_PAYMENT_SDK_ENV}
         REACT_APP_PAYMENT_SERVICE_URL: ${REACT_APP_PAYMENT_SERVICE_URL}
         REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
-        REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
     container_name: biap-app-ui-front
     #    depends_on:
     #      - biap-bap-client
     environment:
       REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+      REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
       REACT_APP_FIREBASE_API_KEY: ${REACT_APP_FIREBASE_API_KEY}
       REACT_APP_FIREBASE_AUTH_DOMAIN: ${REACT_APP_FIREBASE_AUTH_DOMAIN}
       REACT_APP_GOOGLE_API_KEY: ${REACT_APP_GOOGLE_API_KEY}
@@ -60,7 +62,16 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
+  certbot:
+    image: certbot/certbot
+    restart: "always"
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
   biap-client-node-js:
+    restart: "always"
     build:
       context: biap-client-node-js
       args:
@@ -96,9 +107,35 @@ services:
     depends_on:
       - mongo
 
-  py-ondc-protocol:
+  biap-igm-node-js:
     build:
-      context: py-ondc-protocol
+      context: biap-igm-node-js
+    environment:
+      DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
+      PROTOCOL_BASE_URL: ${PROTOCOL_BASE_URL}
+      SSE_TIMEOUT: ${SSE_TIMEOUT}
+      DOMAIN: ${DOMAIN}
+      COUNTRY: ${COUNTRY}
+      BAP_ID: ${BAP_ID}
+      EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
+      EXPECTED_RESOLUTION_TIME: ${EXPECTED_RESOLUTION_TIME}
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
+      BAP_URL: ${BAP_URL}
+      VOLUME_IMAGES_BASE_URL: ${VOLUME_IMAGES_BASE_URL}
+    container_name: biap-igm-node-js
+    ports:
+      - "8989:6969"
+    expose:
+      - 8989
+    depends_on:
+      - mongo
+    volumes:
+      - "./images:/app/images"
+    restart: always
+
+  py-ondc-protocol:
+    image: navdeep710/ondc-protocol-layer-server:pr-sse-v7.8
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}
@@ -108,7 +145,41 @@ services:
       REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
       VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
+      BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
+      BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
+      BAP_ID: ${BAP_ID}
     ports:
       - 5555:5555
     expose:
       - 5555
+    depends_on:
+      - mongo
+
+  bugzilla-node-backend:
+    container_name: bugzilla-node-dev
+    build:
+      context: biap-bugzilla-service
+      dockerfile: Dockerfile.production
+    environment:
+      ENV: prod
+      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      BUGZILLA_BASE_URI: ${BUGZILLA_BASE_URI}
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+    ports:
+      - "8001:8001"
+    expose:
+      - 8001
+    restart: always
+
+  bugzilla-dev-service:
+    build:
+      context: ./biap-bugzilla-service/bugzilla-main
+      dockerfile: Dockerfile
+    environment:
+      BUGZILLA_WWW: /var/www/html/bugzilla/
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+    container_name: bugzilla-dev-service
+    image: shameerkc/bugzilla-dev-sqlite
+    ports:
+      - "90:80"
+      - "5989:5900"
