@@ -22,7 +22,7 @@ A buyer app refers to any application that will help sellers interact with the b
 | Shalaka Patil     | Full Stack Engineer       | Contributor | @shalapatil
 | Harsh Arya        | Frontend Engineer         | Contributor | @harsharya1405
 | Punit Vajpeyi     | Mobile Developer          | Contributor | @Punit-Vajpeyi
-| Abhijeet Singh    | Architech                 | Contributor | @AbhijeetONDC
+| Abhijeet Singh    | Full Stack Engineer       | Contributor | @AbhijeetONDC
 | Robin Chauhan     | Backend Engineer          | Contributor | @robin-chauhan1
 | Sahil Sharma      | Backend Engineer          | Contributor | @sahilsharma9
 | Abhishek Singh    | Frontend Engineer         | Contributor | @Abhi-ONDC
