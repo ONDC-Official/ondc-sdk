@@ -16,6 +16,9 @@
 [dev-internal]
 ondc-ref-app-buyer-dev-internal
 
+[pre-prod-2]
+ondc-ref-app-buyer-v2
+
 [defaults]
 [testing:vars]
 [stage:vars]
