@@ -6,6 +6,28 @@ A buyer app refers to any application that will help sellers interact with the b
 
 [Documentation](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
 
+
+## Working Group Members
+
+| Name              | Role                      | Github Role | Github Username
+| :---------------- | :------------------------ | :---------- | :-------------- 
+| Navdeep Agarwal   | Backend Engineer & Devops | Maintainer  | @navdeep710
+| Abhinandan Satpute| Backend Engineer          | Maintainer  | @wemo-abhinandan
+| Aditya Patil      | Protocol Engineer         | Contributor | @adityapatil123
+| Akshay Chavan     | Backend Engineer          | Contributor | @wemakshaychavan
+| Mayur Jadhav      | Full Stack Engineer       | Contributor | @mj-jadhav
+| Vaibhav           | Frontend Engineer         | Contributor | @vaibhav-wemo
+| Rohaan Ansari     | Frontend Engineer         | Contributor | @RohaanAnsari
+| Vishal            | Frontend Engineer         | Contributor | @vishal-wemotive
+| Shalaka Patil     | Full Stack Engineer       | Contributor | @shalapatil
+| Harsh Arya        | Frontend Engineer         | Contributor | @harsharya1405
+| Punit Vajpeyi     | Mobile Developer          | Contributor | @Punit-Vajpeyi
+| Abhijeet Singh    | Architech                 | Contributor | @AbhijeetONDC
+| Robin Chauhan     | Backend Engineer          | Contributor | @robin-chauhan1
+| Sahil Sharma      | Backend Engineer          | Contributor | @sahilsharma9
+| Abhishek Singh    | Frontend Engineer         | Contributor | @Abhi-ONDC
+
+
 ## Tech Stack
 
 | Type         | Technologies                    |
