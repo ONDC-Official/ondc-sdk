@@ -29,7 +29,7 @@ services:
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: Dockerfile
+      dockerfile: DockerfileWithoutSSL
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
         REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
@@ -135,7 +135,9 @@ services:
     restart: always
 
   py-ondc-protocol:
-    image: navdeep710/ondc-protocol-layer-server:pr-sse-v7.8
+    build:
+      context: py-ondc-protocol/webserver
+      dockerfile: Dockerfile
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}
