@@ -215,7 +215,10 @@ In return you will get payload with additional data which will include ukId.
 
 ## To run all the services
 
+Run
+
 ```bash
-Run docker-compose -f docker-compose-for-local.yaml --env-file .env-local up -d.```
+docker-compose -f docker-compose-for-local.yaml --env-file .env-local up -d
+```
 
 
