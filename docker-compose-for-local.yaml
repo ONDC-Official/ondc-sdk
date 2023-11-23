@@ -178,21 +178,7 @@ services:
     expose:
       - 8001
     restart: always
- 
-  bugzilla-dev-service:
-    build:
-      context: ./biap-bugzilla-service/bugzilla-main
-      dockerfile: Dockerfile
-    environment:
-      BUGZILLA_WWW: /var/www/html/bugzilla/
-      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
- 
-    container_name: bugzilla-dev-service
-    image: shameerkc/bugzilla-dev-sqlite
-    ports:
-      - "90:80"
-      - "5989:5900"
- 
+      
   trudesk-dev-service:
     container_name: trudesk-dev-service  
     build: 
