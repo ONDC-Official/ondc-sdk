@@ -1,5 +1,5 @@
 version: "2"
-
+ 
 services:
   mongo:
     image: mongo
@@ -8,7 +8,7 @@ services:
       - 27017:27017
     volumes:
       - "./data:/data/db"
-
+ 
   mmi-client:
     image: navdeep710/ondc-ancillary-services:v3
     container_name: map-client
@@ -25,11 +25,11 @@ services:
       - 8000:8000
     expose:
       - 8000
-
+ 
   nginx:
     build:
       context: biap-app-ui-front
-      dockerfile: Dockerfile
+      dockerfile: DockerfileWithoutSSL
       args:
         REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
         REACT_APP_MMI_BASE_URL: ${REACT_APP_MMI_BASE_URL}
@@ -61,7 +61,7 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-
+ 
   certbot:
     image: certbot/certbot
     restart: "always"
@@ -69,7 +69,7 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
+ 
   biap-client-node-js:
     restart: "always"
     build:
@@ -106,7 +106,7 @@ services:
       - 3000
     depends_on:
       - mongo
-
+ 
   biap-igm-node-js:
     build:
       context: biap-igm-node-js
@@ -120,6 +120,8 @@ services:
       EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
       EXPECTED_RESOLUTION_TIME: ${EXPECTED_RESOLUTION_TIME}
       BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      SELECTED_ISSUE_CRM: ${SELECTED_ISSUE_CRM}
+      TRUDESK_BASE_URI: ${TRUDESK_BASE_URI}
       BUGZILLA_SERVICE_URI: ${BUGZILLA_SERVICE_URI}
       BAP_URL: ${BAP_URL}
       VOLUME_IMAGES_BASE_URL: ${VOLUME_IMAGES_BASE_URL}
@@ -133,9 +135,11 @@ services:
     volumes:
       - "./images:/app/images"
     restart: always
-
+ 
   py-ondc-protocol:
-    image: navdeep710/ondc-protocol-layer-server:pr-sse-v7.8
+    build:
+      context: py-ondc-protocol/webserver/
+      dockerfile: Dockerfile
     container_name: py-ondc-protocol
     environment:
       ENV: ${PROTOCOL_ENV}
@@ -154,7 +158,7 @@ services:
       - 5555
     depends_on:
       - mongo
-
+ 
   bugzilla-node-backend:
     container_name: bugzilla-node-dev
     build:
@@ -163,23 +167,37 @@ services:
     environment:
       ENV: prod
       BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
+      SELECTED_ISSUE_CRM: ${SELECTED_ISSUE_CRM}
+      TRUDESK_BASE_URI: ${TRUDESK_BASE_URI}
       BUGZILLA_BASE_URI: ${BUGZILLA_BASE_URI}
       BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+      TRUDESK_USERNAME: ${TRUDESK_USERNAME}
+      TRUDESK_PASSWORD: ${TRUDESK_PASSWORD}
     ports:
       - "8001:8001"
     expose:
       - 8001
     restart: always
-
-  bugzilla-dev-service:
-    build:
-      context: ./biap-bugzilla-service/bugzilla-main
+      
+  trudesk-dev-service:
+    container_name: trudesk-dev-service  
+    build: 
+      context: biap-trudesk-service/
       dockerfile: Dockerfile
-    environment:
-      BUGZILLA_WWW: /var/www/html/bugzilla/
-      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
-    container_name: bugzilla-dev-service
-    image: shameerkc/bugzilla-dev-sqlite
+    restart: always
     ports:
-      - "90:80"
-      - "5989:5900"
+      - "8118:8118"
+    dns:
+      - "1.1.1.1"
+      - "8.8.8.8"
+    environment:
+      TRUDESK_DOCKER: "true"
+      TD_MONGODB_SERVER: mongo
+      TD_MONGODB_DATABASE: trudesk
+      USE_XFORWARDIP: "true"
+      REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+      TRUDESK_EMAIL: ${TRUDESK_EMAIL}
+      TRUDESK_USERNAME: ${TRUDESK_USERNAME}
+      TRUDESK_PASSWORD: ${TRUDESK_PASSWORD}
+ 
+ 

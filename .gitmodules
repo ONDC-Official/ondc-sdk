@@ -20,3 +20,7 @@
 	path = biap-bugzilla-service
 	url = https://github.com/ONDC-Official/biap-bugzilla-service
 	branch = main
+[submodule "biap-trudesk-service"]
+	path = biap-trudesk-service
+	url = https://github.com/ONDC-Official/buyer-trudesk-service
+	branch = master

@@ -208,6 +208,56 @@ copy the url to the clipboard and paste it into ``` BAP_URL ``` and ```PROTOCOL_
 ```BAP_ID=``` This will be the ```HOSTED_DOMAIN ```that you are sharing in the payload as the value of subscriber_id.
 
 
+
+## Adding CRM Bugzilla or Trudesk
+
+
+
+
+### For Bugzilla
+
+For Bugzilla you are required to add new service in docker-compose and env as mentioned below
+
+```
+
+BUGZILLA_API_KEY=---
+BUGZILLA_BASE_URI=http://bugzilla-dev-service:80/bugzilla
+VOLUME_IMAGES_BASE_URL=http://localhost:6969/uploads/
+BUGZILLA_SERVICE_URI=http://bugzilla-node-backend:8001
+BUGZILLA_ADMIN_EMAIL=---
+SELECTED_ISSUE_CRM=BUGZILLA
+
+```
+
+
+
+```  
+bugzilla-dev-service:
+    build:
+      context: ./biap-bugzilla-service/bugzilla-main
+      dockerfile: Dockerfile
+    environment:
+      BUGZILLA_WWW: /var/www/html/bugzilla/
+      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+ 
+    container_name: bugzilla-dev-service
+    image: shameerkc/bugzilla-dev-sqlite
+    ports:
+      - "90:80"
+      - "5989:5900"
+```
+
+### For Trudesk
+
+```
+TRUDESK_EMAIL=example@gmail.com
+TRUDESK_USERNAME=admin
+TRUDESK_PASSWORD=password
+SELECTED_ISSUE_CRM=TRUDESK
+TRUDESK_BASE_URI=http://trudesk-dev-service:8118
+
+```
+
 ## Payload Submission To ONDC Staging Registry
 
 Visit this [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdz5-LLGX4m_pOQNFstoZQd5zhb68md_9zoX-dC8N8j2DABbA/viewform) and fill it out carefully.
@@ -219,7 +269,7 @@ In return you will get payload with additional data which will include ukId.
 
 ## To run all the services
 
-```bash
-Run docker-compose -f docker-compose-for-local.yaml --env-file .env-local up -d.```
+```bash 
+docker-compose -f docker-compose-for-local.yaml --env-file .env-local up -d```
 
 
