@@ -4,7 +4,7 @@ A buyer app refers to any application that will help sellers interact with the b
 
 ## User Manual
 
-A detailed user manual for the seller reference app is available [here](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
+A detailed user manual for the buyer reference app is available [here](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
 
 ## ONDC - API Contract for Retail (v1.2.0)
 [Documentation](https://docs.google.com/document/d/1brvcltG_DagZ3kGr1ZZQk4hG4tze3zvcxmGV4NMTzr8/edit)
