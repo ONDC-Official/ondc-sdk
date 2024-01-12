@@ -2,9 +2,12 @@
 
 A buyer app refers to any application that will help sellers interact with the buyers/ end consumers i.e., the demand side of any transaction, where the intent and transaction originate. These can include different types of applications including user experience (UX) based applications, voice assistants, chat-bots, etc. depicting the demand layer for the goods or services.
 
-## Documentation
+## User Manual
 
-[Documentation](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
+A detailed user manual for the seller reference app is available [here](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
+
+## ONDC - API Contract for Retail (v1.2.0)
+[Documentation](https://docs.google.com/document/d/1brvcltG_DagZ3kGr1ZZQk4hG4tze3zvcxmGV4NMTzr8/edit)
 
 ## Reference Buyer Web Application Feature List V1.2
 
