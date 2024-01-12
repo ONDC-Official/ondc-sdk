@@ -6,6 +6,81 @@ A buyer app refers to any application that will help sellers interact with the b
 
 [Documentation](https://docs.google.com/document/d/1pGPZ0jwQH9AP0rdZXUcdv8B1QZudr86W3qjABsrlEso/edit)
 
+## Reference Buyer Web Application Feature List
+
+| Feature                     | Sub Feature                                                                | Phase        | Buyer App Progress                            |
+|:---------------------------:|:--------------------------------------------------------------------------:|:------------:|:---------------------------------------------:|
+| Incremental catalog refresh | Provider disabling                                                         | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Store disabling                                                            | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Store closed (known duration)                                              | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Store closed (unknown duration)                                            | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Item record changes                                                        | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Offers                                                                     | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Full catalog refresh        | RET codes for L1 categories                                                | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Catalog directly to BNP                                                    | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Updated taxonomy (BPC, H&K, H&W)                                           | Phase 2 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Store open / close / disable / enable                                      | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Customization (input - selection)                                          | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Customization (input - free text)                                          | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Handling of make-to-order items display price having base price of 0       | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Variants                                                                   | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Custom Menu                                                                | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Definition of ISN/MSN                                                      | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Item availability schedule                                                 | Phase 1 V1.2 | $${\color{blue}In \space Progress}$$          |
+| Order tracking              | Hyperlocal - using gps coordinates                                         | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Hyperlocal & inter-city - using URL                                        | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Live Order Tracking                                                        | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+| Order flow                  | Addition of quote type                                                     | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Addition of updated /confirm, /on_confirm flow                             | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Customization (input - selection: all pre-order APIs)                      | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Customization (input - free text: all pre-order APIs)                      | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Customization (input - selection: all post-order APIs)                     | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Customization (input - free text: all post-order APIs)                     | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Payment collection by SNP                                                  | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Exchange of GST no between BNP & SNP                                       | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | PAN no for provider for verification of ISN / MSN                          | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Offers                      | Offer definition in catalog                                                | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Applying offers during checkout                                            | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Offer support in other pre-order APIs                                      | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Offer support in other post-order APIs                                     | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Cancellation                | Updated cancel API (non-RTO)                                               | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | RTO flow for cancellation                                                  | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Definition & communication of cancellation terms (fees, etc)               | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Force cancellation (for fulfillment TAT breach)                            | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Linking cancellation with IGM issue                                        | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Static terms                | Enabling static terms                                                      | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| BNP + logistics             | Enabling logistics integration with BNP                                    | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Update API                  | Merchant part cancel                                                       | Phase 2 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Return with pickup                                                         | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Return with liquidation                                                    | Phase 2 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Cancel return request                                                      | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Linking return with IGM issue                                              | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Fulfillment                 | Enabling self-pickup                                                       | Phase 2 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Enabling slotted delivery                                                  | Phase 1 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Enabling additional fulfillment states - hyperlocal                        | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Enabling additional fulfillment states - inter-city                        | Phase 1 V1.2 | $${\color{green}Deployed}$$                   |
+|                             | Enabling authorization options                                             | Phase 1 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Cascading discount, taxes on fulfillment from LSP                          | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Payment on Delivery                                                        | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Notification from LSP on fulfillment delay                                 | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Catalog (others)            | Polygon serviceability                                                     | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Pincode serviceability                                                     | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Distributed search by city                                                 | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Back image for items                                                       | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Minimum order value                                                        | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Different store timings for delivery, pickup, order processing             | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Provider credentials                                                       | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Catalog download zip file link                                             | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Communication from buyer NP to seller NP (catalog ingestion feedback, etc) | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Rating                      | rating, on_rating                                                          | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Others                      | /info, /on_info APIs                                                       | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Off Network Logistics Option                                               | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+|                             | Option to select logistics delivery type                                   | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Personalisation             | Recommendation Engine                                                      | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Festival calendar & configuring for different festivals                    | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+|                             | Bhashini Integration                                                       | Phase 2 V1.2 | $${\color{orange}To \space be \space added}$$ |
+| Catalog Indexing            |                                                                            | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
+| Configurable Theme          |                                                                            | Phase 2 V1.2 | $${\color{blue}In \space Progress}$$          |
 
 ## Working Group Members
 
