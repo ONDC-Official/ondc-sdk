@@ -28,13 +28,13 @@ A detailed user manual for the buyer reference app is available [here](https://d
 |                             | Handling of make-to-order items display price having base price of 0       | $${\color{green}Available}$$                      |
 |                             | Variants                                                                   | $${\color{green}Available}$$                      |
 |                             | Custom Menu                                                                | $${\color{green}Available}$$                      |
-|                             | Definition of ISN/MSN                                                      | $${\color{blue}Under \space Development}$$        |
+|                             | Definition of ISN/MSN                                                      | $${\color{green}Available}$$                      |
 |                             | Item availability schedule                                                 | $${\color{blue}Under \space Development}$$        |
 | Order tracking              | Hyperlocal - using gps coordinates                                         | $${\color{green}Available}$$                      |
 |                             | Hyperlocal & inter-city - using URL                                        | $${\color{orange}In \space future \space scope}$$ |
 |                             | Live Order Tracking                                                        | $${\color{green}Available}$$                      |
-| Order flow                  | Addition of quote type                                                     | $${\color{blue}Under \space Development}$$        |
-|                             | Addition of updated /confirm, /on_confirm flow                             | $${\color{blue}Under \space Development}$$        |
+| Order flow                  | Addition of quote type                                                     | $${\color{green}Available}$$                      |
+|                             | Addition of updated /confirm, /on_confirm flow                             | $${\color{green}Available}$$                      |
 |                             | Customization (input - selection: all pre-order APIs)                      | $${\color{green}Available}$$                      |
 |                             | Customization (input - free text: all pre-order APIs)                      | $${\color{orange}In \space future \space scope}$$ |
 |                             | Customization (input - selection: all post-order APIs)                     | $${\color{green}Available}$$                      |
@@ -54,7 +54,7 @@ A detailed user manual for the buyer reference app is available [here](https://d
 | Static terms                | Enabling static terms                                                      | $${\color{orange}In \space future \space scope}$$ |
 | BNP + logistics             | Enabling logistics integration with BNP                                    | $${\color{orange}In \space future \space scope}$$ |
 | Update API                  | Merchant part cancel                                                       | $${\color{green}Available}$$                      |
-|                             | Return with pickup                                                         | $${\color{blue}Under \space Development}$$        |
+|                             | Return with pickup                                                         | $${\color{green}Available}$$                      |
 |                             | Return with liquidation                                                    | $${\color{green}Available}$$                      |
 |                             | Cancel return request                                                      | $${\color{green}Available}$$                      |
 |                             | Linking return with IGM issue                                              | $${\color{orange}In \space future \space scope}$$ |
