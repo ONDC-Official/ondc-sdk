@@ -1,15 +1,16 @@
 version: "2"
 
-cache:
-  image: redis:6.2-alpine
-  restart: always
-  ports:
-    - 6379:6379
-  expose:
-    - 6379
-  command: redis-server --save 20 1 --loglevel warning
-
 services:
+
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
+    
   mongo:
     image: mongo
     restart: always
