@@ -40,8 +40,8 @@ A detailed user manual for the buyer reference app is available [here](https://d
 |                             | Customization (input - selection: all post-order APIs)                     | $${\color{green}Available}$$                      |
 |                             | Customization (input - free text: all post-order APIs)                     | $${\color{orange}In \space future \space scope}$$ |
 |                             | Payment collection by SNP                                                  | $${\color{orange}In \space future \space scope}$$ |
-|                             | Exchange of GST no between BNP & SNP                                       | $${\color{orange}In \space future \space scope}$$ |
-|                             | PAN no for provider for verification of ISN / MSN                          | $${\color{orange}In \space future \space scope}$$ |
+|                             | Exchange of GST no between BNP & SNP                                       | $${\color{green}Available}$$                      |
+|                             | PAN no for provider for verification of ISN / MSN                          | $${\color{green}Available}$$                      |
 | Offers                      | Offer definition in catalog                                                | $${\color{orange}In \space future \space scope}$$ |
 |                             | Applying offers during checkout                                            | $${\color{orange}In \space future \space scope}$$ |
 |                             | Offer support in other pre-order APIs                                      | $${\color{orange}In \space future \space scope}$$ |
@@ -59,17 +59,17 @@ A detailed user manual for the buyer reference app is available [here](https://d
 |                             | Cancel return request                                                      | $${\color{green}Available}$$                      |
 |                             | Linking return with IGM issue                                              | $${\color{orange}In \space future \space scope}$$ |
 | Fulfillment                 | Enabling self-pickup                                                       | $${\color{green}Available}$$                      |
-|                             | Enabling slotted delivery                                                  | $${\color{blue}Under \space Development}$$        |
+|                             | Enabling slotted delivery                                                  | $${\color{green}Available}$$                      |
 |                             | Enabling additional fulfillment states - hyperlocal                        | $${\color{green}Available}$$                      |
 |                             | Enabling additional fulfillment states - inter-city                        | $${\color{green}Available}$$                      |
 |                             | Enabling authorization options                                             | $${\color{orange}In \space future \space scope}$$ |
 |                             | Cascading discount, taxes on fulfillment from LSP                          | $${\color{orange}In \space future \space scope}$$ |
 |                             | Payment on Delivery                                                        | $${\color{orange}In \space future \space scope}$$ |
 |                             | Notification from LSP on fulfillment delay                                 | $${\color{orange}In \space future \space scope}$$ |
-| Catalog (others)            | Polygon serviceability                                                     | $${\color{blue}Under \space Development}$$        |
+| Catalog (others)            | Polygon serviceability                                                     | $${\color{green}Available}$$                      |
 |                             | Pincode serviceability                                                     | $${\color{orange}In \space future \space scope}$$ |
 |                             | Distributed search by city                                                 | $${\color{orange}In \space future \space scope}$$ |
-|                             | Back image for items                                                       | $${\color{orange}In \space future \space scope}$$ |
+|                             | Back image for items                                                       | $${\color{green}Available}$$                      |
 |                             | Minimum order value                                                        | $${\color{orange}In \space future \space scope}$$ |
 |                             | Different store timings for delivery, pickup, order processing             | $${\color{orange}In \space future \space scope}$$ |
 |                             | Provider credentials                                                       | $${\color{orange}In \space future \space scope}$$ |
@@ -81,9 +81,9 @@ A detailed user manual for the buyer reference app is available [here](https://d
 |                             | Option to select logistics delivery type                                   | $${\color{orange}In \space future \space scope}$$ |
 | Personalisation             | Recommendation Engine                                                      | $${\color{blue}Under \space Development}$$        |
 |                             | Festival calendar & configuring for different festivals                    | $${\color{blue}Under \space Development}$$        |
-|                             | Bhashini Integration                                                       | $${\color{orange}In \space future \space scope}$$ |
+|                             | Bhashini Integration                                                       |  $${\color{blue}Under \space Development}$$       |
 | Catalog Indexing            |                                                                            | $${\color{blue}Under \space Development}$$        |
-| Configurable Theme          |                                                                            | $${\color{blue}Under \space Development}$$        |
+| Configurable Theme          |                                                                            | $${\color{green}Available}$$                      |
 
 ## Working Group Members
 
