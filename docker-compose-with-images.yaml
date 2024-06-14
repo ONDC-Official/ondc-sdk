@@ -1,6 +1,16 @@
 version: '2'
 
 services:
+
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
+  
   mongo:
     image: mongo
     restart: always
@@ -98,6 +108,26 @@ services:
         BAP_FINDER_FEE_TYPE: ${BAP_FINDER_FEE_TYPE}
         BAP_FINDER_FEE_AMOUNT: ${BAP_FINDER_FEE_AMOUNT}
         SSE_TIMEOUT: ${SSE_TIMEOUT}
+        MMI_CLIENT_ID: ${MMI_CLIENT_ID}
+        MMI_CLIENT_SECRET: ${MMI_CLIENT_SECRET}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        S3_VERSION: "v4"
+        S3_REGION: ${S3_REGION}
+        S3_BUCKET: ${S3_BUCKET}
+        RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+        RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+        RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET}
+        BHASHINI_REDIS_PORT: ${BHASHINI_REDIS_PORT}
+        BHASHINI_REDIS_HOST: cache
+        BHASHINI_USERID: ${BHASHINI_USERID}
+        BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+        DLT_CUSTOMER_ID: ${DLT_CUSTOMER_ID}
+        DLT_ENTITY_ID: ${DLT_ENTITY_ID}
+        DLT_USERNAME: ${DLT_USERNAME}
+        DLT_PASSWORD: ${DLT_PASSWORD}
+        DLT_SOURCE: ${DLT_SOURCE}
+        DLT_MESSAGE_TYPE: ${DLT_MESSAGE_TYPE}
     ports:
       - 3000:3000
     expose:
