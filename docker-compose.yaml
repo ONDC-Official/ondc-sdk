@@ -173,7 +173,7 @@ services:
       - "./images:/app/images"
     restart: always
 
-  # Protocol Layer (with mongo replica-set)
+  # Protocol Layer
   py-ondc-protocol:
     logging:
       driver: "json-file"
@@ -231,41 +231,44 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-  mongo1:
-    image: mongo:4.2
-    container_name: mongo1
-    cpuset: "2"
-    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "27017", "--wiredTigerCacheSizeGB", "1.0" ]
-    volumes:
-      - ./data/mongo-1:/data/db
-    expose:
-      - 27017
-    ports:
-      - 27017:27017
-    healthcheck:
-      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:27017\"},{_id:1,host:\"mongo2:27018\"}]}).ok || rs.status().ok" | mongo --port 27017 --quiet) -eq 1
-      interval: 10s
-      start_period: 30s
+
+  # Catalog Service
+  elasticsearch:
     logging:
       driver: "json-file"
       options:
         max-size: "100m"
         max-file: "3"
-  mongo2:
-    image: mongo:4.2
-    container_name: mongo2
-    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "27018", "--wiredTigerCacheSizeGB", "1.0" ]
-    volumes:
-      - ./data/mongo-2:/data/db
-    expose:
-      - 27018
+    image: elasticsearch:8.8.0
+    mem_limit: 1gb
     ports:
-      - 27018:27018
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+  catalog-service:
     logging:
       driver: "json-file"
       options:
         max-size: "100m"
         max-file: "3"
+    build:
+      context: catalog-service
+      dockerfile: Dockerfile
+    container_name: catalog-service
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+      - mongo
+    environment:
+      ENV: ${PROTOCOL_ENV}
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
+      BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+      BHASHINI_USERID: ${BHASHINI_USERID}
+      REDIS_HOST: cache
 
   # Ancillary Services
   mmi-client:

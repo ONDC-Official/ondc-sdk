@@ -157,7 +157,7 @@ services:
       - "./images:/app/images"
     restart: always
 
-  # Protocol Layer (without mongo replica-set)
+  # Protocol Layer
   py-ondc-protocol:
     build:
       context: py-ondc-protocol/webserver
@@ -176,7 +176,8 @@ services:
       VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       FLASK_SERVER: "True"
-      QUEUE_ENABLE: "True"
+      QUEUE_ENABLE: ${QUEUE_ENABLE}
+      ELASTIC_SEARCH_QUEUE_ENABLE: ${ELASTIC_SEARCH_QUEUE_ENABLE}
     expose:
       - 5555
   py-protocol-consumer:
@@ -208,6 +209,34 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+
+  # Catalog Service
+  elasticsearch:
+    image: elasticsearch:8.8.0
+    mem_limit: 1gb
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+  catalog-service:
+    build:
+      context: catalog-service
+      dockerfile: Dockerfile
+    container_name: catalog-service
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+      - mongo
+    environment:
+      ENV: ${PROTOCOL_ENV}
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
+      BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+      BHASHINI_USERID: ${BHASHINI_USERID}
+      REDIS_HOST: cache
 
   # Ancillary Services
   mmi-client:

@@ -162,13 +162,16 @@ Git repositories contain submodules that must be fetched. It requires HTTP-based
 [submodule "biap-bugzilla-service"]
 	path = biap-bugzilla-service
 	url = https://github.com/ONDC-Official/biap-bugzilla-service
+[submodule "catalog-service"]
+	path = catalog-service
+	url = https://github.com/ONDC-Official/catalog-service
+	branch = main
 ```
 
 After that Run these commands
 
 ```bash
 git submodule init
-
 ```
 
 ```bash
