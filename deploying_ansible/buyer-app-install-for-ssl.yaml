@@ -52,6 +52,13 @@
         version: "main"
         force: yes
 
+    - name: Clone catalog-service
+      git:
+        repo: "https://github.com/ONDC-Official/catalog-service"
+        dest: "/home/ubuntu/catalog-service"
+        version: "main"
+        force: yes
+
     - name: Copy config directory
       copy:
         src: "{{ playbook_dir }}/../biap-client-node-js/config"

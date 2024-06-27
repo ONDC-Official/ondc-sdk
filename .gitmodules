@@ -20,3 +20,7 @@
 	path = biap-bugzilla-service
 	url = https://github.com/ONDC-Official/biap-bugzilla-service
 	branch = main
+[submodule "catalog-service"]
+	path = catalog-service
+	url = https://github.com/ONDC-Official/catalog-service
+	branch = main

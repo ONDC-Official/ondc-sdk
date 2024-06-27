@@ -55,6 +55,12 @@
         dest: "/home/ubuntu/biap-bugzilla-service"
         version: "main"
 
+    - name: Clone catalog-service
+      git:
+        repo: "https://github.com/ONDC-Official/catalog-service"
+        dest: "/home/ubuntu/catalog-service"
+        version: "main"
+
     - name: Copy config directory
       copy:
         src: "{{ playbook_dir }}/../biap-client-node-js/config"
