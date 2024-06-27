@@ -1,31 +1,8 @@
-version: '2'
+version: '2.4'
 
 services:
-  mongo:
-    image: mongo
-    restart: always
-    ports:
-      - 27017:27017
-    volumes:
-      - "./data:/data/db"
 
-  mmi-client:
-    image: navdeep710/ondc-ancillary-services:v3
-    container_name: map-client
-    environment:
-      ENV: prod
-      MMI_CLIENT_ID: ${MMI_CLIENT_ID}
-      MMI_CLIENT_SECRET: ${MMI_CLIENT_SECRET}
-      MMI_ADVANCE_API_KEY: ${MMI_ADVANCE_API_KEY}
-      KNOWLARITY_NUMBER: ${KNOWLARITY_NUMBER}
-      KNOWLARITY_AGENT_NUMBER: ${KNOWLARITY_AGENT_NUMBER}
-      KNOWLARITY_API_KEY: ${KNOWLARITY_API_KEY}
-      KNOWLARITY_AUTHORIZATION_HEADER_KEY: ${KNOWLARITY_AUTHORIZATION_HEADER_KEY}
-    ports:
-      - 8000:8000
-    expose:
-      - 8000
-
+  # Nginx(UI)
   nginx:
     build:
       context: biap-app-ui-front
@@ -42,6 +19,9 @@ services:
         REACT_APP_PAYMENT_SERVICE_URL: ${REACT_APP_PAYMENT_SERVICE_URL}
         REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
     container_name: biap-app-ui-front
+
+    restart: always
+
     #    depends_on:
     #      - biap-bap-client
     logging:
@@ -66,7 +46,6 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-
   certbot:
     image: certbot/certbot
     restart: "always"
@@ -75,6 +54,7 @@ services:
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
+  # Client Layer
   biap-client-node-js:
     restart: "always"
     build:
@@ -107,6 +87,25 @@ services:
         SSE_TIMEOUT: ${SSE_TIMEOUT}
         MMI_CLIENT_ID: ${MMI_CLIENT_ID}
         MMI_CLIENT_SECRET: ${MMI_CLIENT_SECRET}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        S3_VERSION: "v4"
+        S3_REGION: ${S3_REGION}
+        S3_BUCKET: ${S3_BUCKET}
+        RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+        RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+        RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET}
+        BHASHINI_REDIS_PORT: ${BHASHINI_REDIS_PORT}
+        BHASHINI_REDIS_HOST: cache
+        BHASHINI_USERID: ${BHASHINI_USERID}
+        BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+        DLT_CUSTOMER_ID: ${DLT_CUSTOMER_ID}
+        DLT_ENTITY_ID: ${DLT_ENTITY_ID}
+        DLT_USERNAME: ${DLT_USERNAME}
+        DLT_PASSWORD: ${DLT_PASSWORD}
+        DLT_SOURCE: ${DLT_SOURCE}
+        DLT_MESSAGE_TYPE: ${DLT_MESSAGE_TYPE}
+        CORS_WHITELIST_URLS: ${CORS_WHITELIST_URLS}
     logging:
       driver: "json-file"
       options:
@@ -118,7 +117,30 @@ services:
       - 3000
     depends_on:
       - mongo
+  mongo:
+    image: mongo
+    restart: always
+    cpuset: "0"
+    command: --wiredTigerCacheSizeGB 1.0
+    ports:
+      - 27020:27017
+    volumes:
+      - "./mongo-data:/data/db"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
 
+  # IGM
   biap-igm-node-js:
     build:
       context: biap-igm-node-js
@@ -142,15 +164,16 @@ services:
       VOLUME_IMAGES_BASE_URL: ${VOLUME_IMAGES_BASE_URL}
     container_name: biap-igm-node-js
     ports:
-      - "8989:6969"
+      - "8989:8989"
     expose:
       - 8989
     depends_on:
-      - mongo
+      - mongo1
     volumes:
       - "./images:/app/images"
     restart: always
 
+  # Protocol Layer (with mongo replica-set)
   py-ondc-protocol:
     logging:
       driver: "json-file"
@@ -160,13 +183,16 @@ services:
     build:
       context: py-ondc-protocol/webserver
       dockerfile: Dockerfile
-    container_name: py-ondc-protocol
+    restart: always
+    cap_add:
+      - SYS_PTRACE
     environment:
       ENV: ${PROTOCOL_ENV}
-      MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
+      EXPECTED_RESPONSE_TIME: ${EXPECTED_RESPONSE_TIME}
       BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
       BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
       BAP_ID: ${BAP_ID}
@@ -174,58 +200,91 @@ services:
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       FLASK_SERVER: "True"
       QUEUE_ENABLE: "True"
-    ports:
-      - 5555:5555
     expose:
       - 5555
-
   py-protocol-consumer:
     build:
       context: py-ondc-protocol/webserver
       dockerfile: dockerfile-consumer
-    container_name: bap-protocol-consumer
     depends_on:
       - rabbitmq
-      - mongo
+      - mongo1
+    restart: always
+    mem_limit: 12g
+    cap_add:
+      - SYS_PTRACE
     environment:
       ENV: ${PROTOCOL_ENV}
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
       BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
       BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
       BAP_ID: ${BAP_ID}
       FLASK_SERVER: "False"
-
+      CONSUMER_MAX_WORKERS: 10
   rabbitmq:
     image: rabbitmq:3.10-management
     container_name: rabbitmq
     hostname: rabbitmq
+    restart: always
     ports:
       - 5672:5672
       - 15672:15672
-
-
-  bugzilla-node-backend:
+  mongo1:
+    image: mongo:4.2
+    container_name: mongo1
+    cpuset: "2"
+    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "27017", "--wiredTigerCacheSizeGB", "1.0" ]
+    volumes:
+      - ./data/mongo-1:/data/db
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:27017\"},{_id:1,host:\"mongo2:27018\"}]}).ok || rs.status().ok" | mongo --port 27017 --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
     logging:
       driver: "json-file"
       options:
         max-size: "100m"
         max-file: "3"
-    container_name: bugzilla-node-dev
-    build:
-      context: biap-bugzilla-service
-      dockerfile: Dockerfile.production
+  mongo2:
+    image: mongo:4.2
+    container_name: mongo2
+    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "27018", "--wiredTigerCacheSizeGB", "1.0" ]
+    volumes:
+      - ./data/mongo-2:/data/db
+    expose:
+      - 27018
+    ports:
+      - 27018:27018
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+  # Ancillary Services
+  mmi-client:
+    image: navdeep710/ondc-ancillary-services:v3
+    container_name: map-client
+    restart: always
     environment:
       ENV: prod
-      BUGZILLA_API_KEY: ${BUGZILLA_API_KEY}
-      BUGZILLA_BASE_URI: ${BUGZILLA_BASE_URI}
-      BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
+      MMI_CLIENT_ID: ${MMI_CLIENT_ID}
+      MMI_CLIENT_SECRET: ${MMI_CLIENT_SECRET}
+      MMI_ADVANCE_API_KEY: ${MMI_ADVANCE_API_KEY}
+      KNOWLARITY_NUMBER: ${KNOWLARITY_NUMBER}
+      KNOWLARITY_AGENT_NUMBER: ${KNOWLARITY_AGENT_NUMBER}
+      KNOWLARITY_API_KEY: ${KNOWLARITY_API_KEY}
+      KNOWLARITY_AUTHORIZATION_HEADER_KEY: ${KNOWLARITY_AUTHORIZATION_HEADER_KEY}
     ports:
-      - "8001:8001"
+      - 8000:8000
     expose:
-      - 8001
-    restart: always
-
+      - 8000
   bugzilla-dev-service:
     logging:
       driver: "json-file"
@@ -239,7 +298,7 @@ services:
       BUGZILLA_WWW: /var/www/html/bugzilla/
       BUGZILLA_ADMIN_EMAIL: ${BUGZILLA_ADMIN_EMAIL}
     container_name: bugzilla-dev-service
+    restart: always
     image: shameerkc/bugzilla-dev-sqlite
     ports:
       - "90:80"
-      - "5989:5900"
