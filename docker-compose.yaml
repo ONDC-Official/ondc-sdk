@@ -106,6 +106,7 @@ services:
         DLT_SOURCE: ${DLT_SOURCE}
         DLT_MESSAGE_TYPE: ${DLT_MESSAGE_TYPE}
         CORS_WHITELIST_URLS: ${CORS_WHITELIST_URLS}
+        ELASTIC_SEARCH_URL: http://elasticsearch:9200
     logging:
       driver: "json-file"
       options:
@@ -131,14 +132,6 @@ services:
       options:
         max-size: "100m"
         max-file: "3"
-  cache:
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - 6379:6379
-    expose:
-      - 6379
-    command: redis-server --save 20 1 --loglevel warning
 
   # IGM
   biap-igm-node-js:
@@ -189,6 +182,7 @@ services:
     environment:
       ENV: ${PROTOCOL_ENV}
       MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
@@ -199,7 +193,10 @@ services:
       VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       FLASK_SERVER: "True"
-      QUEUE_ENABLE: "True"
+      QUEUE_ENABLE: "False"
+      ELASTIC_SEARCH_QUEUE_ENABLE: "True"
+      DUMP_ALL_REQUESTS: "True"
+      CITY_LIST: ${CITY_LIST}
     expose:
       - 5555
   py-protocol-consumer:
@@ -223,6 +220,7 @@ services:
       BAP_ID: ${BAP_ID}
       FLASK_SERVER: "False"
       CONSUMER_MAX_WORKERS: 10
+
   rabbitmq:
     image: rabbitmq:3.10-management
     container_name: rabbitmq
@@ -234,20 +232,27 @@ services:
 
   # Catalog Service
   elasticsearch:
+    restart: always
     logging:
       driver: "json-file"
       options:
         max-size: "100m"
         max-file: "3"
     image: elasticsearch:8.8.0
-    mem_limit: 1gb
-    ports:
-      - 9200:9200
-      - 9300:9300
+    mem_limit: 8gb
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx6g"  # Adjust as per your server resources
+      - "http.max_content_length=200mb"  # Adjust based on your payload size
+    volumes:
+      - /home/ubuntu/elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
   catalog-service:
+    restart: always
+    mem_limit: 5gb
     logging:
       driver: "json-file"
       options:
@@ -256,19 +261,31 @@ services:
     build:
       context: catalog-service
       dockerfile: Dockerfile
-    container_name: catalog-service
     depends_on:
       - elasticsearch
       - rabbitmq
       - mongo
     environment:
-      ENV: ${PROTOCOL_ENV}
+      ENV: "dev"
       MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
       BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
       BHASHINI_USERID: ${BHASHINI_USERID}
       REDIS_HOST: cache
+      LANGUAGE_LIST: "hi"
+      CONSUMER_MAX_WORKERS: "5"
+      BULK_CHUNK_SIZE: "5000"
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
+
+
 
   # Ancillary Services
   mmi-client:

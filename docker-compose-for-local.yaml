@@ -106,6 +106,7 @@ services:
         DLT_SOURCE: ${DLT_SOURCE}
         DLT_MESSAGE_TYPE: ${DLT_MESSAGE_TYPE}
         CORS_WHITELIST_URLS: ${CORS_WHITELIST_URLS}
+        ELASTIC_SEARCH_URL: http://elasticsearch:9200
     ports:
       - 3000:3000
     expose:
@@ -212,31 +213,39 @@ services:
 
   # Catalog Service
   elasticsearch:
+    restart: always
     image: elasticsearch:8.8.0
-    mem_limit: 1gb
-    ports:
-      - 9200:9200
-      - 9300:9300
+    mem_limit: 8gb
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx6g"  # Adjust as per your server resources
+      - "http.max_content_length=200mb"  # Adjust based on your payload size
+    volumes:
+      - /home/ubuntu/elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
   catalog-service:
+    restart: always
     build:
       context: catalog-service
       dockerfile: Dockerfile
-    container_name: catalog-service
     depends_on:
       - elasticsearch
       - rabbitmq
       - mongo
     environment:
-      ENV: ${PROTOCOL_ENV}
+      ENV: "dev"
       MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
       BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
       BHASHINI_USERID: ${BHASHINI_USERID}
       REDIS_HOST: cache
+      LANGUAGE_LIST: "hi"
+      CONSUMER_MAX_WORKERS: "5"
+      BULK_CHUNK_SIZE: "5000"
 
   # Ancillary Services
   mmi-client:
