@@ -106,6 +106,7 @@ services:
         DLT_SOURCE: ${DLT_SOURCE}
         DLT_MESSAGE_TYPE: ${DLT_MESSAGE_TYPE}
         CORS_WHITELIST_URLS: ${CORS_WHITELIST_URLS}
+        ELASTIC_SEARCH_URL: http://elasticsearch:9200
     logging:
       driver: "json-file"
       options:
@@ -131,14 +132,6 @@ services:
       options:
         max-size: "100m"
         max-file: "3"
-  cache:
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - 6379:6379
-    expose:
-      - 6379
-    command: redis-server --save 20 1 --loglevel warning
 
   # IGM
   biap-igm-node-js:
@@ -173,7 +166,7 @@ services:
       - "./images:/app/images"
     restart: always
 
-  # Protocol Layer (with mongo replica-set)
+  # Protocol Layer
   py-ondc-protocol:
     logging:
       driver: "json-file"
@@ -189,6 +182,7 @@ services:
     environment:
       ENV: ${PROTOCOL_ENV}
       MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      REGISTRY_BASE_URL: ${REGISTRY_BASE_URL}
       BAP_URL: ${BAP_URL}
       CLIENT_WEBHOOK_ENDPOINT: ${CLIENT_WEBHOOK_ENDPOINT}
       BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
@@ -199,30 +193,12 @@ services:
       VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       FLASK_SERVER: "True"
-      QUEUE_ENABLE: "True"
+      QUEUE_ENABLE: "False"
+      ELASTIC_SEARCH_QUEUE_ENABLE: "True"
+      DUMP_ALL_REQUESTS: "True"
+      CITY_LIST: ${CITY_LIST}
     expose:
       - 5555
-  py-protocol-consumer:
-    build:
-      context: py-ondc-protocol/webserver
-      dockerfile: dockerfile-consumer
-    depends_on:
-      - rabbitmq
-      - mongo1
-    restart: always
-    mem_limit: 12g
-    cap_add:
-      - SYS_PTRACE
-    environment:
-      ENV: ${PROTOCOL_ENV}
-      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
-      RABBITMQ_HOST: ${RABBITMQ_HOST}
-      BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
-      BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
-      BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
-      BAP_ID: ${BAP_ID}
-      FLASK_SERVER: "False"
-      CONSUMER_MAX_WORKERS: 10
   rabbitmq:
     image: rabbitmq:3.10-management
     container_name: rabbitmq
@@ -231,41 +207,62 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-  mongo1:
-    image: mongo:4.2
-    container_name: mongo1
-    cpuset: "2"
-    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "27017", "--wiredTigerCacheSizeGB", "1.0" ]
-    volumes:
-      - ./data/mongo-1:/data/db
-    expose:
-      - 27017
-    ports:
-      - 27017:27017
-    healthcheck:
-      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:27017\"},{_id:1,host:\"mongo2:27018\"}]}).ok || rs.status().ok" | mongo --port 27017 --quiet) -eq 1
-      interval: 10s
-      start_period: 30s
+
+  # Catalog Service
+  elasticsearch:
+    restart: always
     logging:
       driver: "json-file"
       options:
         max-size: "100m"
         max-file: "3"
-  mongo2:
-    image: mongo:4.2
-    container_name: mongo2
-    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "27018", "--wiredTigerCacheSizeGB", "1.0" ]
+    image: elasticsearch:8.8.0
+    mem_limit: 8gb
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx6g"  # Adjust as per your server resources
+      - "http.max_content_length=200mb"  # Adjust based on your payload size
     volumes:
-      - ./data/mongo-2:/data/db
-    expose:
-      - 27018
+      - /home/ubuntu/elasticsearch-data:/usr/share/elasticsearch/data
     ports:
-      - 27018:27018
+      - 9200:9200
+      - 9300:9300
+  catalog-service:
+    restart: always
+    mem_limit: 5gb
     logging:
       driver: "json-file"
       options:
         max-size: "100m"
         max-file: "3"
+    build:
+      context: catalog-service
+      dockerfile: Dockerfile
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+      - mongo
+    environment:
+      ENV: "dev"
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
+      BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+      BHASHINI_USERID: ${BHASHINI_USERID}
+      REDIS_HOST: cache
+      LANGUAGE_LIST: "hi"
+      CONSUMER_MAX_WORKERS: "5"
+      BULK_CHUNK_SIZE: "5000"
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
+
 
   # Ancillary Services
   mmi-client:
@@ -302,3 +299,6 @@ services:
     image: shameerkc/bugzilla-dev-sqlite
     ports:
       - "90:80"
+
+
+

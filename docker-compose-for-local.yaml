@@ -106,6 +106,7 @@ services:
         DLT_SOURCE: ${DLT_SOURCE}
         DLT_MESSAGE_TYPE: ${DLT_MESSAGE_TYPE}
         CORS_WHITELIST_URLS: ${CORS_WHITELIST_URLS}
+        ELASTIC_SEARCH_URL: http://elasticsearch:9200
     ports:
       - 3000:3000
     expose:
@@ -157,7 +158,7 @@ services:
       - "./images:/app/images"
     restart: always
 
-  # Protocol Layer (without mongo replica-set)
+  # Protocol Layer
   py-ondc-protocol:
     build:
       context: py-ondc-protocol/webserver
@@ -176,30 +177,10 @@ services:
       VERIFICATION_ENABLE: ${VERIFICATION_ENABLE}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       FLASK_SERVER: "True"
-      QUEUE_ENABLE: "True"
+      QUEUE_ENABLE: ${QUEUE_ENABLE}
+      ELASTIC_SEARCH_QUEUE_ENABLE: ${ELASTIC_SEARCH_QUEUE_ENABLE}
     expose:
       - 5555
-  py-protocol-consumer:
-    build:
-      context: py-ondc-protocol/webserver
-      dockerfile: dockerfile-consumer
-    depends_on:
-      - rabbitmq
-      - mongo
-    restart: always
-    mem_limit: 12g
-    cap_add:
-      - SYS_PTRACE
-    environment:
-      ENV: ${PROTOCOL_ENV}
-      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
-      RABBITMQ_HOST: ${RABBITMQ_HOST}
-      BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
-      BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
-      BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
-      BAP_ID: ${BAP_ID}
-      FLASK_SERVER: "False"
-      CONSUMER_MAX_WORKERS: 10
   rabbitmq:
     image: rabbitmq:3.10-management
     container_name: rabbitmq
@@ -208,6 +189,42 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+
+  # Catalog Service
+  elasticsearch:
+    restart: always
+    image: elasticsearch:8.8.0
+    mem_limit: 8gb
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx6g"  # Adjust as per your server resources
+      - "http.max_content_length=200mb"  # Adjust based on your payload size
+    volumes:
+      - /home/ubuntu/elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+  catalog-service:
+    restart: always
+    build:
+      context: catalog-service
+      dockerfile: Dockerfile
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+      - mongo
+    environment:
+      ENV: "dev"
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
+      BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+      BHASHINI_USERID: ${BHASHINI_USERID}
+      REDIS_HOST: cache
+      LANGUAGE_LIST: "hi"
+      CONSUMER_MAX_WORKERS: "5"
+      BULK_CHUNK_SIZE: "5000"
 
   # Ancillary Services
   mmi-client:
