@@ -181,27 +181,6 @@ services:
       ELASTIC_SEARCH_QUEUE_ENABLE: ${ELASTIC_SEARCH_QUEUE_ENABLE}
     expose:
       - 5555
-  py-protocol-consumer:
-    build:
-      context: py-ondc-protocol/webserver
-      dockerfile: dockerfile-consumer
-    depends_on:
-      - rabbitmq
-      - mongo
-    restart: always
-    mem_limit: 12g
-    cap_add:
-      - SYS_PTRACE
-    environment:
-      ENV: ${PROTOCOL_ENV}
-      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
-      RABBITMQ_HOST: ${RABBITMQ_HOST}
-      BAP_PRIVATE_KEY: ${BAP_PRIVATE_KEY}
-      BAP_UNIQUE_KEY_ID: ${BAP_UNIQUE_KEY_ID}
-      BAP_PUBLIC_KEY: ${BAP_PUBLIC_KEY}
-      BAP_ID: ${BAP_ID}
-      FLASK_SERVER: "False"
-      CONSUMER_MAX_WORKERS: 10
   rabbitmq:
     image: rabbitmq:3.10-management
     container_name: rabbitmq
