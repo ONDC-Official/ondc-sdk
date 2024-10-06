@@ -206,26 +206,51 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
-  catalog-service:
+  catalog-service-transformer:
     restart: always
     build:
       context: catalog-service
-      dockerfile: Dockerfile
+      dockerfile: dockerfiles/transformerDockerfile
+    depends_on:
+      - rabbitmq
+      - mongo1
+    environment:
+      ENV: dev
+      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
+      ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
+      RABBITMQ_HOST: "rabbitmq"
+      CONSUMER_MAX_WORKERS: "3"
+      LANGUAGE_LIST: ${LANGUAGE_LIST}
+  catalog-service-es-dumper:
+    restart: always
+    build:
+      context: catalog-service
+      dockerfile: dockerfiles/esDumperDockerfile
+    container_name: catalog-service-es-dumper
     depends_on:
       - elasticsearch
       - rabbitmq
-      - mongo
     environment:
-      ENV: "dev"
-      MONGO_DATABASE_URL: ${MONGO_DATABASE_URL}
-      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      ENV: dev
+      RABBITMQ_HOST: "rabbitmq"
       ELASTIC_SEARCH_URL: ${ELASTIC_SEARCH_URL}
-      BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+      CONSUMER_MAX_WORKERS: "20"
+  catalog-service-translator:
+    restart: always
+    build:
+      context: catalog-service
+      dockerfile: dockerfiles/translatorDockerfile
+    depends_on:
+      - rabbitmq
+      - cache
+    environment:
+      ENV: dev
+      RABBITMQ_HOST: "rabbitmq"
+      REDIS_HOST: "cache"
+      CONSUMER_MAX_WORKERS: "1"
       BHASHINI_USERID: ${BHASHINI_USERID}
-      REDIS_HOST: cache
-      LANGUAGE_LIST: ""
-      CONSUMER_MAX_WORKERS: "5"
-      BULK_CHUNK_SIZE: "5000"
+      BHASHINI_ULCA_API_KEY: ${BHASHINI_ULCA_API_KEY}
+      LANGUAGE_LIST: ${LANGUAGE_LIST}
 
   # Ancillary Services
   mmi-client:
