@@ -215,6 +215,18 @@ REACT_APP_PAYMENT_SERVICE_URL=”PAYMENT_SERVICE_URL”
 
 ```
 
+### Generating the `.pem` File for Juspay Credentials
+
+If you're unable to find the `.pem` file for Juspay credentials, follow these steps:
+
+1. Go to [Juspay Security Settings](https://portal.juspay.in/settings/security).
+2. Under the "RSA Keys" section, click the "Upload new RSA" button on the right.
+3. Select the option "I don't have the RSA Keys, I want to auto-generate the keys."
+4. This will download a file named `private.pem`. Rename this file to `juspay.pem`.
+5. Set the environment variable `JUSPAY_SECRET_KEY_PATH` as:
+   ```bash
+   export JUSPAY_SECRET_KEY_PATH="/PATH/TO/juspay.pem"
+
 **B. Map My India (MMI)**
 
 For location based information, integration with MMI has been used. MMI has been used as follows -
